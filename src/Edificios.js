@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import CardEdificio from './CardEdificio';
 
 export default function Edificios() {
   useEffect(() => {
@@ -20,11 +20,7 @@ export default function Edificios() {
     <div>
       {edificios.map(i => (
         <div className="card" key={i.codigo}>
-          <h2>{i.nombre}</h2>
-          <h4>{i.direccion}</h4>
-          <button>
-            <Link to={`detalleEdificio/${i.nombre}`}>Ver unidades</Link>
-          </button>
+          <CardEdificio id={i.codigo} nombre={i.nombre} direccion={i.direccion} />
         </div>
       ))}
     </div>
