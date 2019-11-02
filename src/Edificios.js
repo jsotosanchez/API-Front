@@ -19,9 +19,13 @@ export default function Edificios() {
   return (
     <div>
       {edificios.map(i => (
-        <h2 key={i.codigo}>
-          <Link to={`detalleEdificio/${i.nombre}`}>{i.nombre}</Link>
-        </h2>
+        <div className="card" key={i.codigo}>
+          <h2>{i.nombre}</h2>
+          <h4>{i.direccion}</h4>
+          <button>
+            <Link to={`detalleEdificio/${i.nombre}`}>Ver unidades</Link>
+          </button>
+        </div>
       ))}
     </div>
   );

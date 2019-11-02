@@ -1,5 +1,25 @@
+/* this class is on top of everything */
 .App {
-  text-align: center;
+  font-family: 'Roboto Mono', monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p {
+  color: #005070;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: #f24c62;
 }
 
 nav {
@@ -7,7 +27,7 @@ nav {
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: #f7f7f7;
+  background: #f7f6f6;
   color: white;
 }
 
@@ -17,4 +37,20 @@ nav {
   justify-content: space-around;
   align-items: center;
   list-style: none;
+}
+
+.nav-links li :hover {
+  color: #f24c62 !important;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 #c7c4c4;
+  transition: 0.3s;
+  width: 40%;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 5px;
+  background-color: #f7f6f6;
+}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
