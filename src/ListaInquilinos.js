@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import CardUnidad from './CardUnidad';
+import CardPersona from './CardPersona';
 
 function useInquilinos(id) {
   const [inquilinos, setInquilinos] = useState([]);
@@ -46,7 +46,7 @@ export default function ListaInquilinos({ id }) {
       </label>
       <div className="lista-unidades">
         {inquilinos.map(u => (
-          <CardUnidad key={u.id} piso={u.documento} numero={u.nombre} className="card-unidad" />
+          <CardPersona key={u.id} documento={u.documento} nombre={u.nombre} className="card-unidad" />
         ))}
       </div>
     </div>
