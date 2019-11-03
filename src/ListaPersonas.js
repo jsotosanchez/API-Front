@@ -4,14 +4,14 @@ import CardPersona from './CardPersona';
 function usePersonas(id, target) {
   const [personas, setPersonas] = useState([]);
 
-  const fetchUnidades = async () => {
+  const fetchPersonas = async () => {
     const data = await fetch(`http://localhost:8080/edificios/${id}/${target}`);
     const dataAsJson = await data.json();
     return dataAsJson;
   };
 
   useEffect(() => {
-    fetchUnidades().then(setPersonas);
+    fetchPersonas().then(setPersonas);
     return () => undefined;
   }, [id]);
 
@@ -35,6 +35,7 @@ function useFiltrarPersonas(id, filtro, target) {
 export default function ListaPersonas({ id, target }) {
   const [filtro, setFiltro] = useState('');
   const personas = useFiltrarPersonas(id, filtro, target);
+  console.log(personas);
 
   const handleInputFiltro = event => setFiltro(event.target.value);
 
@@ -46,7 +47,7 @@ export default function ListaPersonas({ id, target }) {
       </label>
       <div className="lista-unidades">
         {personas.map(u => (
-          <CardPersona key={u.id} documento={u.documento} nombre={u.nombre} className="card-unidad" />
+          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} className="card-unidad" />
         ))}
       </div>
     </div>

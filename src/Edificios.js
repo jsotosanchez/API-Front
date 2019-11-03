@@ -42,7 +42,7 @@ export default function Edificios() {
 
   return (
     <div>
-      <form className={classNames('filter-form')}>
+      <form className={classNames('form-filter')}>
         <label>
           Buscar:
           <input type="text" name="name" placeholder="Nombre" onChange={handleChange} />

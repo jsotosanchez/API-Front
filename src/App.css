@@ -162,7 +162,7 @@ input {
 .nav-buttons {
   width: 50%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   list-style: none;
   padding-left: 0px;
