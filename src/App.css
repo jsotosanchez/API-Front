@@ -58,8 +58,32 @@ nav {
   font-family: 'Roboto Mono', monospace;
   border-radius: 5px;
   background-color: #f7f6f6;
-  text-align: end;
+  text-align: center;
 }
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card a {
+  color: #f7f6f6;
+}
+
+.button {
+  background-color: #005070;
+  border-radius: 10px;
+  margin: 0px 0px 12px 0px;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #f24c62;
+  animation-name: increase-button;
+  animation-duration: 400ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes increase-button {
+  100% {
+    transform: scale(1.1);
+  }
 }

@@ -6,7 +6,7 @@ export default function CardEdificio({ id, nombre, direccion, className }) {
     <div className={className}>
       <h2>{nombre}</h2>
       <h4>Direccion: {direccion}</h4>
-      <button>
+      <button className="button">
         <Link to={`detalleEdificio/${id}`}>Ver unidades</Link>
       </button>
     </div>
