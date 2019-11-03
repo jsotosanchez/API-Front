@@ -62,7 +62,7 @@ nav {
   padding-bottom: 5px;
 }
 .card-edificio:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 #005070;
   cursor: pointer;
 }
 
@@ -85,6 +85,8 @@ nav {
   margin: 0px 0px 12px 0px;
   font-size: 14px;
   color: #f7f6f6;
+  padding: 7px 10px 7px 10px;
+  /* border-color: #49c6dd; */
 }
 
 .button:hover {
@@ -94,13 +96,17 @@ nav {
   animation-fill-mode: forwards;
 }
 
+.button-clicked {
+  background-color: #f24c62;
+}
+
 @keyframes increase-button {
   100% {
     transform: scale(1.05);
   }
 }
 
-input[type='text'] {
+input {
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -124,4 +130,28 @@ input[type='text'] {
 .lista-unidades {
   overflow: auto;
   max-height: 100vh;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+@media only screen and (min-width: 1000) {
+  .lista-unidades {
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+.card-unidad {
+  box-shadow: 8px 4px 8px 4px #c7c4c4;
+  transition: 0.3s;
+  border-radius: 5px;
+  background-color: #f7f6f6;
+  text-align: center;
+  margin: 20px 20px 20px 20px;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+
+.card-unidad:hover {
+  box-shadow: 4px 4px 8px 6px #005070;
+  cursor: pointer;
 }

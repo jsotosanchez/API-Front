@@ -51,7 +51,7 @@ export default function Edificios() {
         <section>
           {edificios.map(i => (
             <div onClick={() => handleClick(i.codigo, i.nombre)} key={i.codigo}>
-              <CardEdificio id={i.codigo} nombre={i.nombre} direccion={i.direccion} className="card-edificio" />
+              <CardEdificio nombre={i.nombre} direccion={i.direccion} className="card-edificio" />
             </div>
           ))}
         </section>
