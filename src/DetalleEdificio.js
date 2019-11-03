@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import ListaUnidades from './ListaUnidades';
-import ListaInquilinos from './ListaInquilinos';
-import ListaDuenios from './ListaDuenios';
-import ListaHabilitados from './ListaHabilitados';
 import ListaReclamos from './ListaReclamos';
+import ListaPersonas from './ListaPersonas';
 
 export default function DetalleEdificio({ id, nombre }) {
   const [verUnidades, setVerUnidades] = useState(true);
@@ -90,9 +88,9 @@ export default function DetalleEdificio({ id, nombre }) {
         </li>
       </ul>
       {verUnidades ? <ListaUnidades id={id} /> : ''}
-      {verInquilinos ? <ListaInquilinos id={id} /> : ''}
-      {verDuenios ? <ListaDuenios id={id} /> : ''}
-      {verHabilitados ? <ListaHabilitados id={id} /> : ''}
+      {verInquilinos ? <ListaPersonas id={id} target="habitantes" /> : ''}
+      {verDuenios ? <ListaPersonas id={id} target="duenios" /> : ''}
+      {verHabilitados ? <ListaPersonas id={id} target="habilitados" /> : ''}
       {verReclamos ? <ListaReclamos id={id} /> : ''}
     </div>
   );

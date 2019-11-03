@@ -1,40 +1,40 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import CardPersona from './CardPersona';
 
-function useHabilitados(id) {
-  const [habilitados, setHabilitados] = useState([]);
+function usePersonas(id, target) {
+  const [personas, setPersonas] = useState([]);
 
   const fetchUnidades = async () => {
-    const data = await fetch(`http://localhost:8080/edificios/${id}/habilitados`);
+    const data = await fetch(`http://localhost:8080/edificios/${id}/${target}`);
     const dataAsJson = await data.json();
     return dataAsJson;
   };
 
   useEffect(() => {
-    fetchUnidades().then(setHabilitados);
+    fetchUnidades().then(setPersonas);
     return () => undefined;
   }, [id]);
 
-  return habilitados;
+  return personas;
 }
 
-function useFiltrarHabilitados(id, filtro) {
-  const habilitados = useHabilitados(id);
+function useFiltrarPersonas(id, filtro, target) {
+  const personas = usePersonas(id, target);
 
   return useMemo(
     () =>
-      habilitados.filter(
+      personas.filter(
         e =>
           e.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
           e.documento.toLowerCase().includes(filtro.toLowerCase())
       ),
-    [habilitados, filtro]
+    [personas, filtro]
   );
 }
 
-export default function ListaHabilitados({ id }) {
+export default function ListaPersonas({ id, target }) {
   const [filtro, setFiltro] = useState('');
-  const habilitados = useFiltrarHabilitados(id, filtro);
+  const personas = useFiltrarPersonas(id, filtro, target);
 
   const handleInputFiltro = event => setFiltro(event.target.value);
 
@@ -45,7 +45,7 @@ export default function ListaHabilitados({ id }) {
         <input type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
       </label>
       <div className="lista-unidades">
-        {habilitados.map(u => (
+        {personas.map(u => (
           <CardPersona key={u.id} documento={u.documento} nombre={u.nombre} className="card-unidad" />
         ))}
       </div>
