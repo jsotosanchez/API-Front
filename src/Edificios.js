@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import CardEdificio from './CardEdificio';
 import DetalleEdificio from './DetalleEdificio';
+import classNames from 'classnames';
 
 function useEdificios() {
   const [edificios, setEdificios] = useState([]);
@@ -41,7 +42,7 @@ export default function Edificios() {
 
   return (
     <div>
-      <form>
+      <form className={classNames('filter-form')}>
         <label>
           Buscar:
           <input type="text" name="name" placeholder="Nombre" onChange={handleChange} />

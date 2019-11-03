@@ -7,6 +7,9 @@ AZUL OSCURO: #005070;
  */
 
 /* this class is on top of everything */
+body {
+  margin: 0;
+}
 .App {
   font-family: 'Roboto Mono', monospace;
 }
@@ -154,4 +157,17 @@ input {
 .card-unidad:hover {
   box-shadow: 4px 4px 8px 6px #005070;
   cursor: pointer;
+}
+
+.nav-buttons {
+  width: 50%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  list-style: none;
+  padding-left: 0px;
+}
+
+.form-filter {
+  padding: 0px 20px;
 }
