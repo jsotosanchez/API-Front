@@ -84,6 +84,7 @@ nav {
   border-radius: 7px;
   margin: 0px 0px 12px 0px;
   font-size: 14px;
+  color: #f7f6f6;
 }
 
 .button:hover {
@@ -114,7 +115,13 @@ input[type='text'] {
 }
 
 .container {
+  align-content: space-around;
   width: 100%;
   display: grid;
   grid-template-columns: 40% 60%;
+}
+
+.lista-unidades {
+  overflow: auto;
+  max-height: 100vh;
 }
