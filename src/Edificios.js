@@ -1,27 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import CardEdificio from './CardEdificio';
 
-export default function Edificios() {
-  useEffect(() => {
-    fetchEdificios();
-  }, []);
-
+function useEdificios() {
   const [edificios, setEdificios] = useState([]);
-
   const fetchEdificios = async () => {
     const data = await fetch('http://localhost:8080/edificios');
     const dataAsJson = await data.json();
-
-    console.log(dataAsJson);
-    setEdificios(dataAsJson);
+    return dataAsJson;
   };
+
+  useEffect(() => {
+    fetchEdificios().then(setEdificios);
+    return () => undefined;
+  }, []);
+
+  return edificios;
+}
+
+function useFiltrarEdificios(filtro) {
+  const edificios = useEdificios();
+  return useMemo(() => edificios.filter(e => e.nombre.includes(filtro)), [filtro, edificios]);
+}
+
+export default function Edificios() {
+  const [filtro, setFiltro] = useState('');
+
+  const edificios = useFiltrarEdificios(filtro);
+
+  const handleChange = event => setFiltro(event.target.value);
 
   return (
     <div>
+      <form>
+        <label>
+          Nombre:
+          <input type="text" name="name" onChange={handleChange} />
+        </label>
+      </form>
       {edificios.map(i => (
-        <div className="card" key={i.codigo}>
-          <CardEdificio id={i.codigo} nombre={i.nombre} direccion={i.direccion} />
-        </div>
+        <CardEdificio id={i.codigo} nombre={i.nombre} direccion={i.direccion} className="card" key={i.codigo} />
       ))}
     </div>
   );
