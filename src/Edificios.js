@@ -33,8 +33,8 @@ export default function Edificios() {
     <div>
       <form>
         <label>
-          Nombre:
-          <input type="text" name="name" onChange={handleChange} />
+          Buscar:
+          <input type="text" name="name" placeholder="Nombre" onChange={handleChange} />
         </label>
       </form>
       {edificios.map(i => (
