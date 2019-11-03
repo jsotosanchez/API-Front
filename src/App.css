@@ -5,6 +5,7 @@ AZUL CLARITO: #49C6DD;
 BLANCO: #F7F6F6;
 AZUL OSCURO: #005070;
  */
+
 /* this class is on top of everything */
 .App {
   font-family: 'Roboto Mono', monospace;
@@ -51,26 +52,26 @@ nav {
   color: #f24c62 !important;
 }
 
-.card {
+.card-edificio {
   box-shadow: 0 4px 8px 0 #c7c4c4;
   transition: 0.3s;
-  width: 30%;
-  font-family: 'Roboto Mono', monospace;
   border-radius: 5px;
   background-color: #f7f6f6;
   text-align: center;
+  margin: 20px 20px 20px 20px;
 }
-.card:hover {
+.card-edificio:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
-.card a {
+.card-edificio a {
   color: #f7f6f6;
 }
 
 .button {
   background-color: #005070;
-  border-radius: 10px;
+  border-radius: 7px;
   margin: 0px 0px 12px 0px;
   font-size: 14px;
 }
@@ -100,4 +101,10 @@ input[type='text'] {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   margin: 10px 10px 10px 10px;
+}
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
 }
