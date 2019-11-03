@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link, Route } from 'react-router-dom';
 import CardEdificio from './CardEdificio';
 import DetalleEdificio from './DetalleEdificio';
 import classNames from 'classnames';
@@ -27,18 +28,11 @@ function useFiltrarEdificios(filtro) {
   ]);
 }
 
-export default function Edificios() {
+export default function Edificios({ match }) {
   const [filtro, setFiltro] = useState('');
-  const [seleccinadoId, setSeleccionadoId] = useState(0);
-  const [seleccionadoNombre, setSeleccionadoNombre] = useState('');
   const edificios = useFiltrarEdificios(filtro);
 
   const handleChange = event => setFiltro(event.target.value);
-
-  const handleClick = (codigo, nombre) => {
-    setSeleccionadoId(codigo);
-    setSeleccionadoNombre(nombre);
-  };
 
   return (
     <div>
@@ -50,19 +44,20 @@ export default function Edificios() {
       </form>
       <div className="container">
         <section>
-          {edificios.map(i => (
-            <div onClick={() => handleClick(i.codigo, i.nombre)} key={i.codigo}>
-              <CardEdificio nombre={i.nombre} direccion={i.direccion} className="card-edificio" />
-            </div>
+          {edificios.map(e => (
+            <Link to={`${match.url}/${e.codigo}`} key={e.codigo}>
+              <CardEdificio nombre={e.nombre} direccion={e.direccion} className="card-edificio" />
+            </Link>
           ))}
         </section>
-        {seleccinadoId ? (
-          <section className="detalle-edificio">
-            <DetalleEdificio id={seleccinadoId} nombre={seleccionadoNombre} />
-          </section>
-        ) : (
-          ''
-        )}
+        <Route
+          path={`${match.url}/:id`}
+          render={() => (
+            <section className="detalle-edificio">
+              <DetalleEdificio nombre={'seleccionadoNombre'} />
+            </section>
+          )}
+        ></Route>
       </div>
     </div>
   );

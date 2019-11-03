@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import CardUnidad from './CardUnidad';
 
+const fetchUnidades = async id => {
+  const data = await fetch(`http://localhost:8080/edificios/${id}/unidades`);
+  const dataAsJson = await data.json();
+  return dataAsJson;
+};
+
 function useUnidades(id) {
   const [unidades, setUnidades] = useState([]);
 
-  const fetchUnidades = async () => {
-    const data = await fetch(`http://localhost:8080/edificios/${id}/unidades`);
-    const dataAsJson = await data.json();
-    return dataAsJson;
-  };
-
   useEffect(() => {
-    fetchUnidades().then(setUnidades);
+    fetchUnidades(id).then(setUnidades);
     return () => undefined;
   }, [id]);
 

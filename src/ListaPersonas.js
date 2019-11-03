@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import CardPersona from './CardPersona';
 
+const fetchPersonas = async (id, target) => {
+  const data = await fetch(`http://localhost:8080/edificios/${id}/${target}`);
+  const dataAsJson = await data.json();
+  return dataAsJson;
+};
+
 function usePersonas(id, target) {
   const [personas, setPersonas] = useState([]);
 
-  const fetchPersonas = async () => {
-    const data = await fetch(`http://localhost:8080/edificios/${id}/${target}`);
-    const dataAsJson = await data.json();
-    return dataAsJson;
-  };
-
   useEffect(() => {
-    fetchPersonas().then(setPersonas);
+    fetchPersonas(id, target).then(setPersonas);
     return () => undefined;
-  }, [id]);
+  }, [id, target]);
 
   return personas;
 }

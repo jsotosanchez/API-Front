@@ -4,7 +4,13 @@ import ListaUnidades from './ListaUnidades';
 import ListaReclamos from './ListaReclamos';
 import ListaPersonas from './ListaPersonas';
 
-export default function DetalleEdificio({ id, nombre }) {
+import { withRouter } from 'react-router';
+
+export default withRouter(DetalleEdificio);
+
+function DetalleEdificio({ nombre, match }) {
+  console.info(match);
+  const id = match.params.id;
   const [verUnidades, setVerUnidades] = useState(true);
   const [verInquilinos, setVerInquilinos] = useState(false);
   const [verDuenios, setVerDuenios] = useState(false);

@@ -13,8 +13,8 @@ export default function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/reclamos" component={Reclamos} />
           <Route path="/edificios" component={Edificios} />
+          <Route path="/reclamos" component={Reclamos} />
         </Switch>
       </div>
     </Router>
