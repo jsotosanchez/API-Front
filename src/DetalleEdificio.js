@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
 import ListaUnidades from './ListaUnidades';
@@ -7,16 +7,38 @@ import ListaPersonas from './ListaPersonas';
 
 import { withRouter } from 'react-router';
 
+const fetchEdificio = async id => {
+  const data = await fetch(`http://localhost:8080/edificios/${id}`);
+  const dataAsJson = await data.json();
+  return dataAsJson;
+};
+
+function useEdificio(id) {
+  const [edificio, setEdificio] = useState([]);
+
+  useEffect(() => {
+    fetchEdificio(id).then(setEdificio);
+    return () => undefined;
+  }, [id]);
+
+  return edificio;
+}
+
 export default withRouter(DetalleEdificio);
 
-function DetalleEdificio({ nombre, match }) {
+function DetalleEdificio({ match }) {
+  const id = match.params.id;
+  const edificio = useEdificio(id);
+
   const navStyle = {
     width: '100%'
   };
 
   return (
     <div>
-      <h2>{nombre}</h2>
+      <h2>
+        <b>{edificio.nombre}</b>
+      </h2>
       <nav>
         <ul className="nav-links" style={navStyle}>
           <Link to={`${match.url}/unidades`}>

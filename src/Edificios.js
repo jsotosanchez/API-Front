@@ -31,10 +31,8 @@ function useFiltrarEdificios(filtro) {
 export default function Edificios({ match }) {
   const [filtro, setFiltro] = useState('');
   const edificios = useFiltrarEdificios(filtro);
-  const [nombreEdificio, setNombreEdificio] = useState('');
 
   const handleChange = event => setFiltro(event.target.value);
-  const handleClick = nombre => setNombreEdificio(nombre);
 
   return (
     <div>
@@ -47,13 +45,7 @@ export default function Edificios({ match }) {
       <div className="container">
         <section>
           {edificios.map(e => (
-            <Link
-              to={`${match.url}/${e.codigo}`}
-              key={e.codigo}
-              onClick={() => {
-                handleClick(e.nombre);
-              }}
-            >
+            <Link to={`${match.url}/${e.codigo}`} key={e.codigo}>
               <CardEdificio nombre={e.nombre} direccion={e.direccion} className="card-edificio" />
             </Link>
           ))}
@@ -62,7 +54,7 @@ export default function Edificios({ match }) {
           path={`${match.url}/:id`}
           render={() => (
             <section className="detalle-edificio">
-              <DetalleEdificio nombre={nombreEdificio} />
+              <DetalleEdificio />
             </section>
           )}
         ></Route>
