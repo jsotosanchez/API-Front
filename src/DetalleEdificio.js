@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
+import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+
 import ListaUnidades from './ListaUnidades';
 import ListaReclamos from './ListaReclamos';
 import ListaPersonas from './ListaPersonas';
@@ -9,95 +10,45 @@ import { withRouter } from 'react-router';
 export default withRouter(DetalleEdificio);
 
 function DetalleEdificio({ nombre, match }) {
-  console.info(match);
-  const id = match.params.id;
-  const [verUnidades, setVerUnidades] = useState(true);
-  const [verInquilinos, setVerInquilinos] = useState(false);
-  const [verDuenios, setVerDuenios] = useState(false);
-  const [verHabilitados, setVerHabilitados] = useState(false);
-  const [verReclamos, setVerReclamos] = useState(false);
-
-  const mostrarUnidades = () => {
-    setVerUnidades(true);
-    setVerInquilinos(false);
-    setVerDuenios(false);
-    setVerHabilitados(false);
-    setVerReclamos(false);
-  };
-
-  const mostrarInquilinos = () => {
-    setVerUnidades(false);
-    setVerInquilinos(true);
-    setVerDuenios(false);
-    setVerHabilitados(false);
-    setVerReclamos(false);
-  };
-
-  const mostrarDuenios = () => {
-    setVerUnidades(false);
-    setVerInquilinos(false);
-    setVerDuenios(true);
-    setVerHabilitados(false);
-    setVerReclamos(false);
-  };
-
-  const mostrarHabilitados = () => {
-    setVerUnidades(false);
-    setVerInquilinos(false);
-    setVerDuenios(false);
-    setVerHabilitados(true);
-    setVerReclamos(false);
-  };
-
-  const mostrarReclamos = () => {
-    setVerUnidades(false);
-    setVerInquilinos(false);
-    setVerDuenios(false);
-    setVerHabilitados(false);
-    setVerReclamos(true);
+  const navStyle = {
+    width: '100%'
   };
 
   return (
     <div>
       <h2>{nombre}</h2>
-      <ul className="nav-buttons">
-        <li>
-          <button className={classNames('button', { 'button-clicked': verUnidades })} onClick={() => mostrarUnidades()}>
-            Unidades
-          </button>
-        </li>
-        <li>
-          <button
-            className={classNames('button', { 'button-clicked': verInquilinos })}
-            onClick={() => mostrarInquilinos()}
-          >
-            Inquilinos
-          </button>
-        </li>
-        <li>
-          <button className={classNames('button', { 'button-clicked': verDuenios })} onClick={() => mostrarDuenios()}>
-            Duenios
-          </button>
-        </li>
-        <li>
-          <button
-            className={classNames('button', { 'button-clicked': verHabilitados })}
-            onClick={() => mostrarHabilitados()}
-          >
-            Habilitados
-          </button>
-        </li>
-        <li>
-          <button className={classNames('button', { 'button-clicked': verReclamos })} onClick={() => mostrarReclamos()}>
-            Reclamos
-          </button>
-        </li>
-      </ul>
-      {verUnidades ? <ListaUnidades id={id} /> : ''}
-      {verInquilinos ? <ListaPersonas id={id} target="habitantes" /> : ''}
-      {verDuenios ? <ListaPersonas id={id} target="duenios" /> : ''}
-      {verHabilitados ? <ListaPersonas id={id} target="habilitados" /> : ''}
-      {verReclamos ? <ListaReclamos id={id} /> : ''}
+      <nav>
+        <ul className="nav-links" style={navStyle}>
+          <Link to={`${match.url}/unidades`}>
+            <li>Unidades</li>
+          </Link>
+          <Link to={`${match.url}/inquilinos`}>
+            <li>Inquilinos</li>
+          </Link>
+          <Link to={`${match.url}/duenios`}>
+            <li>Duenios</li>
+          </Link>
+          <Link to={`${match.url}/habilitados`}>
+            <li>Habilitados</li>
+          </Link>
+          <Link to={`${match.url}/reportes`}>
+            <li>Reportes</li>
+          </Link>
+        </ul>
+      </nav>
+      <Switch>
+        <Route path={`${match.url}/unidades`} render={() => <ListaUnidades id={match.params.id} />} />
+        <Route
+          path={`${match.url}/inquilinos`}
+          render={() => <ListaPersonas id={match.params.id} target="habitantes" />}
+        />
+        <Route path={`${match.url}/duenios`} render={() => <ListaPersonas id={match.params.id} target="duenios" />} />
+        <Route
+          path={`${match.url}/habilitados`}
+          render={() => <ListaPersonas id={match.params.id} target="habilitados" />}
+        />
+        <Route path={`${match.url}/reportes`} render={() => <ListaReclamos id={match.params.id} />} />
+      </Switch>
     </div>
   );
 }

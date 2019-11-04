@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { withRouter } from 'react-router';
 import CardUnidad from './CardUnidad';
 
 const fetchUnidades = async id => {
@@ -27,7 +28,10 @@ function useFiltrarUnidades(id, filtroSoloDisponible, piso) {
   ]);
 }
 
-export default function ListaUnidades({ id }) {
+export default withRouter(ListaUnidades);
+
+function ListaUnidades({ match, id }) {
+  console.log(match);
   const [verSoloDisponibles, setVerSoloDisponibles] = useState(true);
   const [piso, setPiso] = useState(null);
   const unidades = useFiltrarUnidades(id, verSoloDisponibles, piso);
