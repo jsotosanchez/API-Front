@@ -1,14 +1,17 @@
 /* COLORES:
-ROJO: #F24C62;
-GRIS: #c7c4c4;
-AZUL CLARITO: #49C6DD;
-BLANCO: #F7F6F6;
-AZUL OSCURO: #005070;
+Gris oscuro: #9e9b9a
+Gris-verdoso-oscuro: #cfd2cd
+Gris-verdoso-clarito #f3f8f2
+Blanco : #f7f6f6 (fondo)
+Gris: #e5e6e4 (nav)
+Verde: #466365 (texto)
+Rojo: #E63946
  */
 
 /* this class is on top of everything */
 body {
   margin: 0;
+  background-color: #f7f6f6;
 }
 .App {
   font-family: 'Roboto Mono', monospace;
@@ -23,7 +26,7 @@ h6,
 a,
 p,
 label {
-  color: #005070;
+  color: #466365;
 }
 
 a {
@@ -31,15 +34,15 @@ a {
 }
 
 a:hover {
-  color: #f24c62;
+  color: #e63946;
 }
 
 nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  min-height: 10vh;
-  background: #f7f6f6;
+  min-height: 7vh;
+  background: #e5e6e4;
   color: white;
 }
 
@@ -49,13 +52,20 @@ nav {
   justify-content: space-around;
   align-items: center;
   list-style: none;
+  margin: 8px;
+}
+
+.nav-titulo {
+  background-color: #e5e6e4;
+  margin: 0px;
+  padding-top: 5px;
 }
 
 .nav-links li :hover {
-  color: #f24c62 !important;
+  color: #e63946 !important;
 }
 
-.card-edificio {
+.card {
   box-shadow: 0 4px 8px 0 #c7c4c4;
   transition: 0.3s;
   border-radius: 5px;
@@ -64,13 +74,11 @@ nav {
   margin: 20px 20px 20px 20px;
   padding-bottom: 5px;
 }
-.card-edificio:hover {
-  box-shadow: 0 8px 16px 0 #005070;
-  cursor: pointer;
-}
 
-.card-edificio a {
-  color: #f7f6f6;
+.card:hover {
+  box-shadow: 0 8px 16px 0 #cfd2cd;
+  cursor: pointer;
+  background: #cfd2cd;
 }
 
 .detalle-edificio {
@@ -93,14 +101,10 @@ nav {
 }
 
 .button:hover {
-  background-color: #f24c62;
+  background-color: #e63946;
   animation-name: increase-button;
   animation-duration: 400ms;
   animation-fill-mode: forwards;
-}
-
-.button-clicked {
-  background-color: #f24c62;
 }
 
 @keyframes increase-button {
@@ -143,22 +147,6 @@ input {
   }
 }
 
-.card-unidad {
-  box-shadow: 8px 4px 8px 4px #c7c4c4;
-  transition: 0.3s;
-  border-radius: 5px;
-  background-color: #f7f6f6;
-  text-align: center;
-  margin: 20px 20px 20px 20px;
-  padding-bottom: 5px;
-  font-size: 14px;
-}
-
-.card-unidad:hover {
-  box-shadow: 4px 4px 8px 6px #005070;
-  cursor: pointer;
-}
-
 .nav-buttons {
   width: 50%;
   display: flex;
@@ -170,4 +158,42 @@ input {
 
 .form-filter {
   padding: 0px 20px;
+}
+
+/* pop up */
+/* background */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

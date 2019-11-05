@@ -47,7 +47,7 @@ export default function ListaPersonas({ id, target }) {
       </label>
       <div className="lista-unidades">
         {personas.map(u => (
-          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} className="card-unidad" />
+          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} className="card" />
         ))}
       </div>
     </div>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { withRouter } from 'react-router';
+import { Link, Switch, Route } from 'react-router-dom';
+
 import CardUnidad from './CardUnidad';
+import UnidadPopUp from './UnidadPopUp';
 
 const fetchUnidades = async id => {
   const data = await fetch(`http://localhost:8080/edificios/${id}/unidades`);
@@ -52,9 +55,14 @@ function ListaUnidades({ match, id }) {
       </button>
       <div className="lista-unidades">
         {unidades.map(u => (
-          <CardUnidad key={u.id} piso={u.piso} numero={u.numero} className="card-unidad" />
+          <Link to={`${match.url}/${u.id}`} key={u.id}>
+            <CardUnidad piso={u.piso} numero={u.numero} className="card" />
+          </Link>
         ))}
       </div>
+      <Switch>
+        <Route path={`${match.url}/:id`} component={UnidadPopUp} />
+      </Switch>
     </div>
   );
 }

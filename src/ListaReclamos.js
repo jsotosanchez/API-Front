@@ -68,7 +68,7 @@ function ListaReclamos({ id }) {
             estado={u.estado}
             nombre={u.usuario.nombre}
             edificio={u.edificio.nombre}
-            className="card-unidad"
+            className="card"
           />
         ))}
       </div>

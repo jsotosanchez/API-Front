@@ -46,7 +46,7 @@ export default function Edificios({ match }) {
         <section>
           {edificios.map(e => (
             <Link to={`${match.url}/${e.codigo}`} key={e.codigo}>
-              <CardEdificio nombre={e.nombre} direccion={e.direccion} className="card-edificio" />
+              <CardEdificio nombre={e.nombre} direccion={e.direccion} className="card" />
             </Link>
           ))}
         </section>

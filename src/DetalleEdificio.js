@@ -36,24 +36,24 @@ function DetalleEdificio({ match }) {
 
   return (
     <div>
-      <h2>
+      <h2 className={'nav-titulo'}>
         <b>{edificio.nombre}</b>
       </h2>
       <nav>
         <ul className="nav-links" style={navStyle}>
-          <Link to={`${match.url}/unidades`}>
+          <Link to={`${match.url}/unidades`} className="link">
             <li>Unidades</li>
           </Link>
-          <Link to={`${match.url}/inquilinos`}>
+          <Link to={`${match.url}/inquilinos`} className="link">
             <li>Inquilinos</li>
           </Link>
-          <Link to={`${match.url}/duenios`}>
+          <Link to={`${match.url}/duenios`} className="link">
             <li>Duenios</li>
           </Link>
-          <Link to={`${match.url}/habilitados`}>
+          <Link to={`${match.url}/habilitados`} className="link">
             <li>Habilitados</li>
           </Link>
-          <Link to={`${match.url}/reportes`}>
+          <Link to={`${match.url}/reportes`} className="link">
             <li>Reportes</li>
           </Link>
         </ul>
