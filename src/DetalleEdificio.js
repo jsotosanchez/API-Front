@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import ListaUnidades from './ListaUnidades';
 import ListaReclamos from './ListaReclamos';
 import ListaPersonas from './ListaPersonas';
 
 import { withRouter } from 'react-router';
+import NavDetalleEdificio from './NavDetalleEdificio';
 
 const fetchEdificio = async id => {
   const data = await fetch(`http://localhost:8080/edificios/${id}`);
@@ -30,34 +31,12 @@ function DetalleEdificio({ match }) {
   const id = match.params.id;
   const edificio = useEdificio(id);
 
-  const navStyle = {
-    width: '100%'
-  };
-
   return (
     <div>
       <h2 className={'nav-titulo'}>
         <b>{edificio.nombre}</b>
       </h2>
-      <nav>
-        <ul className="nav-links" style={navStyle}>
-          <Link to={`${match.url}/unidades`} className="link">
-            <li>Unidades</li>
-          </Link>
-          <Link to={`${match.url}/inquilinos`} className="link">
-            <li>Inquilinos</li>
-          </Link>
-          <Link to={`${match.url}/duenios`} className="link">
-            <li>Duenios</li>
-          </Link>
-          <Link to={`${match.url}/habilitados`} className="link">
-            <li>Habilitados</li>
-          </Link>
-          <Link to={`${match.url}/reportes`} className="link">
-            <li>Reportes</li>
-          </Link>
-        </ul>
-      </nav>
+      <NavDetalleEdificio url={match.url} />
       <Switch>
         <Route path={`${match.url}/unidades`} render={() => <ListaUnidades id={match.params.id} />} />
         <Route
