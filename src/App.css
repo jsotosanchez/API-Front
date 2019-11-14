@@ -102,15 +102,6 @@ nav {
 
 .button:hover {
   background-color: #e63946;
-  animation-name: increase-button;
-  animation-duration: 400ms;
-  animation-fill-mode: forwards;
-}
-
-@keyframes increase-button {
-  100% {
-    transform: scale(1.05);
-  }
 }
 
 input {
@@ -178,9 +169,8 @@ input {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
 }
 
 /* The Close Button */

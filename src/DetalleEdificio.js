@@ -28,6 +28,7 @@ function useEdificio(id) {
 export default withRouter(DetalleEdificio);
 
 function DetalleEdificio({ match }) {
+  const url = 'http://localhost:8080/edificios';
   const id = match.params.id;
   const edificio = useEdificio(id);
 
@@ -41,12 +42,15 @@ function DetalleEdificio({ match }) {
         <Route path={`${match.url}/unidades`} render={() => <ListaUnidades id={match.params.id} />} />
         <Route
           path={`${match.url}/inquilinos`}
-          render={() => <ListaPersonas id={match.params.id} target="habitantes" />}
+          render={() => <ListaPersonas id={match.params.id} url={url} tipoPersona="habitantes" />}
         />
-        <Route path={`${match.url}/duenios`} render={() => <ListaPersonas id={match.params.id} target="duenios" />} />
+        <Route
+          path={`${match.url}/duenios`}
+          render={() => <ListaPersonas id={match.params.id} url={url} tipoPersona="duenios" />}
+        />
         <Route
           path={`${match.url}/habilitados`}
-          render={() => <ListaPersonas id={match.params.id} target="habilitados" />}
+          render={() => <ListaPersonas id={match.params.id} url={url} tipoPersona="habilitados" />}
         />
         <Route path={`${match.url}/reportes`} render={() => <ListaReclamos id={match.params.id} />} />
       </Switch>

@@ -21,7 +21,7 @@ export default function NavDetalleEdificio({ url }) {
           <li>Habilitados</li>
         </Link>
         <Link to={`${url}/reportes`} className="link">
-          <li>Reportes</li>
+          <li>Reclamos</li>
         </Link>
       </ul>
     </nav>

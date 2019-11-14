@@ -34,7 +34,6 @@ function useFiltrarUnidades(id, filtroSoloDisponible, piso) {
 export default withRouter(ListaUnidades);
 
 function ListaUnidades({ match, id }) {
-  console.log(match);
   const [verSoloDisponibles, setVerSoloDisponibles] = useState(true);
   const [piso, setPiso] = useState(null);
   const unidades = useFiltrarUnidades(id, verSoloDisponibles, piso);
@@ -51,7 +50,7 @@ function ListaUnidades({ match, id }) {
         <input type="number" name="piso" placeholder="" onChange={handleInputPiso} />
       </label>
       <button className="button" onClick={() => filtrarHabitadas()}>
-        {verSoloDisponibles ? 'Ver no disponibles' : 'Ver disponibles'}
+        {verSoloDisponibles ? 'Disponibles' : 'No disponibles'}
       </button>
       <div className="lista-unidades">
         {unidades.map(u => (
