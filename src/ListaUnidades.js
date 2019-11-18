@@ -1,36 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import { Link, Switch, Route } from 'react-router-dom';
 
+import { useFiltrarUnidades } from './hooks/useUnidades';
 import CardUnidad from './CardUnidad';
 import UnidadPopUp from './UnidadPopUp';
 
-const fetchUnidades = async id => {
-  const data = await fetch(`http://localhost:8080/edificios/${id}/unidades`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-function useUnidades(id) {
-  const [unidades, setUnidades] = useState([]);
-
-  useEffect(() => {
-    fetchUnidades(id).then(setUnidades);
-    return () => undefined;
-  }, [id]);
-
-  return unidades;
-}
-
-function useFiltrarUnidades(id, filtroSoloDisponible, piso) {
-  const unidades = useUnidades(id);
-  return useMemo(() => unidades.filter(e => e.habitado !== filtroSoloDisponible && (!piso || e.piso === piso)), [
-    filtroSoloDisponible,
-    unidades,
-    piso
-  ]);
-}
-
+// @ts-ignore
 export default withRouter(ListaUnidades);
 
 function ListaUnidades({ match, id }) {

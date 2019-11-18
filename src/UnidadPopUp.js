@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaPersonas from './ListaPersonas';
 import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
-
-const fetchUnidad = async id => {
-  const data = await fetch(`http://localhost:8080/unidades/${id}`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-function useUnidad(id) {
-  const [unidad, setUnidad] = useState(null);
-
-  useEffect(() => {
-    fetchUnidad(id).then(setUnidad);
-    return () => undefined;
-  }, [id]);
-
-  return unidad;
-}
+import { useUnidad } from './hooks/useUnidad';
 
 export default function UnidadPopUp({ match }) {
   const unidad = useUnidad(match.params.id);

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { useFiltrarReclamos } from './hooks/useReclamos';
 import CardReclamo from './CardReclamo';
 
+// @ts-ignore
 export default withRouter(ListaReclamos);
 
 function ListaReclamos({ id }) {
