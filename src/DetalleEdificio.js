@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import { useEdificio } from './hooks/useEdificio';
 import ListaUnidades from './ListaUnidades';
 import ListaReclamos from './ListaReclamos';
 import ListaPersonas from './ListaPersonas';
 
 import { withRouter } from 'react-router';
 import NavDetalleEdificio from './NavDetalleEdificio';
-
-const fetchEdificio = async id => {
-  const data = await fetch(`http://localhost:8080/edificios/${id}`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-function useEdificio(id) {
-  const [edificio, setEdificio] = useState([]);
-
-  useEffect(() => {
-    fetchEdificio(id).then(setEdificio);
-    return () => undefined;
-  }, [id]);
-
-  return edificio;
-}
 
 export default withRouter(DetalleEdificio);
 
