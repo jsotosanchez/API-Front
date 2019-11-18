@@ -1,5 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 
+/**
+ *
+ * @param {function(): Promise} fetchPersonas
+ */
 function usePersonas(fetchPersonas) {
   const [personas, setPersonas] = useState([]);
 
