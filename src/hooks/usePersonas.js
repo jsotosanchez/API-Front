@@ -1,24 +1,24 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const fetchPersonas = async (id, url, tipoPersona) => {
-  const data = await fetch(`${url}/${id}/${tipoPersona}`);
+const fetchPersonas = async (id, tipoPersona) => {
+  const data = await fetch(`http://localhost:8080/edificios/${id}/${tipoPersona}`);
   const dataAsJson = await data.json();
   return dataAsJson;
 };
 
-function usePersonas(id, url, tipoPersona) {
+function usePersonas(id, tipoPersona) {
   const [personas, setPersonas] = useState([]);
 
   useEffect(() => {
-    fetchPersonas(id, url, tipoPersona).then(setPersonas);
+    fetchPersonas(id, tipoPersona).then(setPersonas);
     return () => undefined;
-  }, [id, url, tipoPersona]);
+  }, [id, tipoPersona]);
 
   return personas;
 }
 
-export function useFiltrarPersonas(id, filtro, url, tipoPersona) {
-  const personas = usePersonas(id, url, tipoPersona);
+export function useFiltrarPersonas(id, filtro, tipoPersona) {
+  const personas = usePersonas(id, tipoPersona);
 
   return useMemo(
     () =>

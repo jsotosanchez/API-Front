@@ -25,7 +25,7 @@ export default function UnidadPopUp({ match }) {
         <Route
           exact
           path={`${match.url}/duenios`}
-          render={() => <ListaPersonas id={match.params.id} url={'url'} tipoPersona={'duenios'} />}
+          render={() => <ListaPersonas id={match.params.id} tipoPersona={'duenios'} />}
         />
         <Route exact path={`${match.url}/reclamos`} render={() => <ListaReclamos id={match.params.id} />} />
       </div>

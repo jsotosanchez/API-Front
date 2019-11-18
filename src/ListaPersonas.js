@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useFiltrarPersonas } from './hooks/usePersonas';
 import CardPersona from './CardPersona';
 
-export default function ListaPersonas({ id, url, tipoPersona }) {
+export default function ListaPersonas({ id, tipoPersona }) {
   const [filtro, setFiltro] = useState('');
-  const personas = useFiltrarPersonas(id, filtro, url, tipoPersona);
+  const personas = useFiltrarPersonas(id, filtro, tipoPersona);
 
   const handleInputFiltro = event => setFiltro(event.target.value);
 
