@@ -1,37 +1,18 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Link, Route } from 'react-router-dom';
+import { useFiltrarEdificios } from './hooks/EdificiosHook';
 import CardEdificio from './CardEdificio';
 import DetalleEdificio from './DetalleEdificio';
 import classNames from 'classnames';
-
-function useEdificios() {
-  const [edificios, setEdificios] = useState([]);
-  const fetchEdificios = async () => {
-    const data = await fetch('http://localhost:8080/edificios');
-    const dataAsJson = await data.json();
-    return dataAsJson;
-  };
-
-  useEffect(() => {
-    fetchEdificios().then(setEdificios);
-    return () => undefined;
-  }, []);
-
-  return edificios;
-}
-
-function useFiltrarEdificios(filtro) {
-  const edificios = useEdificios();
-  return useMemo(() => edificios.filter(e => e.nombre.toLowerCase().includes(filtro.toLowerCase())), [
-    filtro,
-    edificios
-  ]);
-}
 
 export default function Edificios({ match }) {
   const [filtro, setFiltro] = useState('');
   const edificios = useFiltrarEdificios(filtro);
 
+  /**
+   * @template {HTMLInputElement} T
+   * @param {React.ChangeEvent<T>} event
+   */
   const handleChange = event => setFiltro(event.target.value);
 
   return (
