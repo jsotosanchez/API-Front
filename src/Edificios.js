@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { useFiltrarEdificios } from './hooks/EdificiosHook';
+import { useFiltrarEdificios } from './hooks/useEdificio';
 import CardEdificio from './CardEdificio';
 import DetalleEdificio from './DetalleEdificio';
 import classNames from 'classnames';
