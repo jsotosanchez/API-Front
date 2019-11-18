@@ -1,24 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const fetchPersonas = async (id, tipoPersona) => {
-  const data = await fetch(`http://localhost:8080/edificios/${id}/${tipoPersona}`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-function usePersonas(id, tipoPersona) {
+function usePersonas(fetchPersonas) {
   const [personas, setPersonas] = useState([]);
 
   useEffect(() => {
-    fetchPersonas(id, tipoPersona).then(setPersonas);
+    fetchPersonas().then(setPersonas);
     return () => undefined;
-  }, [id, tipoPersona]);
+  }, [fetchPersonas]);
 
   return personas;
 }
 
-export function useFiltrarPersonas(id, filtro, tipoPersona) {
-  const personas = usePersonas(id, tipoPersona);
+export function useFiltrarPersonas(fetchPersonas, filtro) {
+  const personas = usePersonas(fetchPersonas);
 
   return useMemo(
     () =>

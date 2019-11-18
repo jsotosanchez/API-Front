@@ -31,15 +31,15 @@ function DetalleEdificio({ match }) {
         <Route path={`${match.url}/unidades`} render={() => <ListaUnidades id={match.params.id} />} />
         <Route
           path={`${match.url}/inquilinos`}
-          render={() => <ListaPersonas id={match.params.id} tipoPersona="habitantes" />}
+          render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habitantes')} />}
         />
         <Route
           path={`${match.url}/duenios`}
-          render={() => <ListaPersonas id={match.params.id} tipoPersona="duenios" />}
+          render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'duenios')} />}
         />
         <Route
           path={`${match.url}/habilitados`}
-          render={() => <ListaPersonas id={match.params.id} tipoPersona="habilitados" />}
+          render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habilitados')} />}
         />
         <Route path={`${match.url}/reportes`} render={() => <ListaReclamos id={match.params.id} />} />
       </Switch>
