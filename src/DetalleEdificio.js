@@ -22,7 +22,6 @@ function DetalleEdificio({ match }) {
   };
 
   const fetchReclamos = async id => {
-    console.log('fetch reclamos id', id);
     const data = await fetch(`http://localhost:8080/edificios/${id}/reclamos`);
     const dataAsJson = await data.json();
     return dataAsJson;
@@ -31,7 +30,12 @@ function DetalleEdificio({ match }) {
   return (
     <div>
       <h2 className={'nav-titulo'}>
-        <b>{edificio.nombre}</b>
+        <b>
+          {
+            // @ts-ignore
+            edificio.nombre
+          }
+        </b>
       </h2>
       <NavDetalleEdificio url={match.url} />
       <Switch>
