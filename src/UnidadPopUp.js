@@ -3,11 +3,11 @@ import { Route } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
+import UnidadAlquilar from './UnidadAlquilar';
 import { useUnidad } from './hooks/useUnidad';
 
 export default function UnidadPopUp({ match }) {
   const unidad = useUnidad(match.params.id);
-  console.log('unidad', unidad);
 
   const fetchPersonas = async tipoPersona => {
     const data = await fetch(
@@ -40,11 +40,27 @@ export default function UnidadPopUp({ match }) {
     return dataAsJson;
   };
 
+  const alquilar = async documento => {
+    fetch(
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/alquilar/${documento}`,
+      {
+        method: 'post'
+      }
+    );
+  };
+
+  const liberar = async () => {
+    console.log('liberar');
+    fetch(`http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/liberar/`, {
+      method: 'post'
+    });
+  };
+
   return (
     <div className="modal">
       <button className="close">X</button>
       <div className="modal-content">
-        <NavUnidadPopUp url={match.url} />
+        {unidad && <NavUnidadPopUp url={match.url} habitado={unidad.habitado} liberar={liberar} />}
         <Route
           path={`${match.url}/inquilinos`}
           render={() =>
@@ -73,7 +89,21 @@ export default function UnidadPopUp({ match }) {
         <Route
           exact
           path={`${match.url}/reclamos`}
-          render={() => <ListaReclamos fetchReclamos={() => fetchReclamos()} />}
+          render={() => unidad && <ListaReclamos fetchReclamos={fetchReclamos} />}
+        />
+        <Route
+          exact
+          path={`${match.url}/alquilar`}
+          render={() =>
+            unidad && (
+              <UnidadAlquilar
+                codigo={unidad.edificio.codigo}
+                piso={unidad.piso}
+                numero={unidad.numero}
+                alquilar={alquilar}
+              />
+            )
+          }
         />
       </div>
     </div>

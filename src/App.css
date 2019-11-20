@@ -93,7 +93,7 @@ nav {
 .button {
   background-color: #005070;
   border-radius: 7px;
-  margin: 0px 0px 12px 0px;
+  margin: 0px 0px 0px 0px;
   font-size: 14px;
   color: #f7f6f6;
   padding: 7px 10px 7px 10px;
@@ -145,6 +145,8 @@ input {
   align-items: center;
   list-style: none;
   padding-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .form-filter {

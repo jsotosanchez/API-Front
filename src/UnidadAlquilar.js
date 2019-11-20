@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
-import ListaPersonas from './ListaPersonas';
 
 /**
  *
- * @param {object} props
- * @param {function():Promise} props.fetchPersonas
- * @param {string} props.tipoPersona
- * @param {function(string, string): void} props.addPersona
+ * @param {{codigo:string, piso: string, numero: string, alquilar: function}} props
  */
-export default function PersonasDeUnidad({ fetchPersonas, tipoPersona, addPersona }) {
+export default function UnidadAlquilar({ codigo, piso, numero, alquilar }) {
   const [documento, setDocumento] = useState('');
   const handleInput = event => setDocumento(event.target.value);
+
+  const handleSubmit = () => {
+    alquilar(documento);
+  };
 
   return (
     <div>
       <form
         onSubmit={event => {
           event.preventDefault();
-          addPersona(tipoPersona, documento);
+          handleSubmit();
         }}
       >
         <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
         <button type="submit" className="button">
-          Agregar
+          Alquilar
         </button>
       </form>
-      <ListaPersonas fetchPersonas={fetchPersonas} />
     </div>
   );
 }

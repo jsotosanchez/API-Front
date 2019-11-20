@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function NavUnidadPopUp({ url }) {
+export default function NavUnidadPopUp({ url, habitado, liberar }) {
+  const handleClick = event => {
+    liberar();
+  };
   return (
     <nav>
       <ul className="nav-links">
@@ -14,12 +17,18 @@ export default function NavUnidadPopUp({ url }) {
         <Link to={`${url}/reclamos`} className="link">
           <li>Reclamos</li>
         </Link>
-        <Link to={`${url}/alquilar`} className="link">
-          <li>Alquilar</li>
-        </Link>
+        {!habitado && (
+          <Link to={`${url}/alquilar`} className="link">
+            <li>Alquilar</li>
+          </Link>
+        )}
       </ul>
       <ul className="nav-buttons">
-        <button className="button">LIBERAR</button>
+        {habitado && (
+          <button onClick={handleClick} className="button">
+            Liberar
+          </button>
+        )}
       </ul>
     </nav>
   );
