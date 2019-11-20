@@ -15,6 +15,7 @@ const actualizarEstado = (estado, id) => {
 export default function ReclamoPopUp({ match }) {
   const id = match.params.id;
   const reclamo = useReclamo(id);
+  // @ts-ignore
   const [estado, setEstado] = useState(reclamo.estado);
 
   const handleInputEstado = event => {
@@ -28,14 +29,26 @@ export default function ReclamoPopUp({ match }) {
           <div className="container">
             <section>img</section>
             <section>
-              <h2>Estado: {reclamo.estado}</h2>
+              <h2>
+                Estado:{' '}
+                {
+                  // @ts-ignore
+                  reclamo.estado
+                }
+              </h2>
               <p>
                 <b>Ubicación: </b>
-                {reclamo.ubicacion}
+                {
+                  // @ts-ignore
+                  reclamo.ubicacion
+                }
               </p>
               <p>
                 <b>Descripción: </b>
-                {reclamo.descripcion}
+                {
+                  // @ts-ignore
+                  reclamo.descripcion
+                }
               </p>
               <form
                 onSubmit={event => {

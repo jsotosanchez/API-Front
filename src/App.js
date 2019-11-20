@@ -5,6 +5,7 @@ import './app.css';
 
 import Reclamos from './Reclamos';
 import Edificios from './Edificios';
+import Personas from './Personas';
 import Nav from './Nav';
 import { SessionContext, useContextoSesion } from './SessionContext';
 
@@ -19,6 +20,7 @@ export default function App() {
           <Switch>
             <Route path="/edificios" component={Edificios} />
             <Route path="/reclamos" component={Reclamos} />
+            <Route path="/personas" component={Personas} />
             <Redirect exact from="/" to="/edificios" />
           </Switch>
         </div>

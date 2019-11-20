@@ -4,20 +4,19 @@ import { useState, useEffect, useMemo } from 'react';
  *
  * @param {function(): Promise} fetchPersonas
  */
-function usePersonas(fetchPersonas) {
+function usePersonas(fetchPersonas, filtro) {
   const [personas, setPersonas] = useState([]);
 
   useEffect(() => {
     fetchPersonas().then(setPersonas);
     return () => undefined;
-  }, [fetchPersonas]);
+  }, [fetchPersonas, filtro]);
 
   return personas;
 }
 
 export function useFiltrarPersonas(fetchPersonas, filtro) {
-  const personas = usePersonas(fetchPersonas);
-  console.log('personas', personas);
+  const personas = usePersonas(fetchPersonas, filtro);
 
   return useMemo(
     () =>

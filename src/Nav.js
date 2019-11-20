@@ -11,6 +11,9 @@ export default function Nav() {
         <Link to="/reclamos">
           <li>Reclamos</li>
         </Link>
+        <Link to="/personas">
+          <li>Personas</li>
+        </Link>
       </ul>
     </nav>
   );
