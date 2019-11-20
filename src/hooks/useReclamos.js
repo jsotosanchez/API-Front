@@ -1,24 +1,22 @@
 import { useState, useEffect, useMemo } from 'react';
 
-const fetchReclamos = async id => {
-  const data = await fetch(`http://localhost:8080/edificios/${id}/reclamos`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-function useReclamos(id) {
+/**
+ *
+ * @param {function(): Promise} fetchReclamos
+ */
+function useReclamos(fetchReclamos) {
   const [reclamos, setReclamos] = useState([]);
 
   useEffect(() => {
-    fetchReclamos(id).then(setReclamos);
+    fetchReclamos().then(setReclamos);
     return () => undefined;
-  }, [id]);
+  }, [fetchReclamos]);
 
   return reclamos;
 }
 
-export function useFiltrarReclamos(id, estado, filtroUsuario) {
-  const reclamos = useReclamos(id);
+export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario) {
+  const reclamos = useReclamos(fetchReclamos);
   return useMemo(
     () =>
       reclamos.filter(

@@ -17,6 +17,7 @@ function usePersonas(fetchPersonas) {
 
 export function useFiltrarPersonas(fetchPersonas, filtro) {
   const personas = usePersonas(fetchPersonas);
+  console.log('personas', personas);
 
   return useMemo(
     () =>

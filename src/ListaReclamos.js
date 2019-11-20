@@ -7,15 +7,14 @@ import CardReclamo from './CardReclamo';
 // @ts-ignore
 export default withRouter(ListaReclamos);
 
-function ListaReclamos({ id }) {
+function ListaReclamos({ fetchReclamos }) {
   const [filtroUsuario, setFiltroUsuario] = useState('');
   const [estado, setEstado] = useState('nuevo');
-  const reclamos = useFiltrarReclamos(id, estado, filtroUsuario);
+  const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario);
 
   const handleInputNombre = event => setFiltroUsuario(event.target.value);
   const handleInputEstado = event => {
     setEstado(event.target.value);
-    console.log(event.target.value);
   };
 
   return (

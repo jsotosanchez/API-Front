@@ -21,6 +21,13 @@ function DetalleEdificio({ match }) {
     return dataAsJson;
   };
 
+  const fetchReclamos = async id => {
+    console.log('fetch reclamos id', id);
+    const data = await fetch(`http://localhost:8080/edificios/${id}/reclamos`);
+    const dataAsJson = await data.json();
+    return dataAsJson;
+  };
+
   return (
     <div>
       <h2 className={'nav-titulo'}>
@@ -41,7 +48,10 @@ function DetalleEdificio({ match }) {
           path={`${match.url}/habilitados`}
           render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habilitados')} />}
         />
-        <Route path={`${match.url}/reportes`} render={() => <ListaReclamos id={match.params.id} />} />
+        <Route
+          path={`${match.url}/reportes`}
+          render={() => <ListaReclamos fetchReclamos={() => fetchReclamos(match.params.id)} />}
+        />
       </Switch>
     </div>
   );

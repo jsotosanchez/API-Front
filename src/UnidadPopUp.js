@@ -7,10 +7,11 @@ import { useUnidad } from './hooks/useUnidad';
 
 export default function UnidadPopUp({ match }) {
   const unidad = useUnidad(match.params.id);
+  console.log('unidad', unidad);
 
   const fetchPersonas = async tipoPersona => {
     const data = await fetch(
-      `http://localhost:8080/unidades/${unidad.id}/${unidad.piso}/${unidad.numero}/${tipoPersona}`
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/${tipoPersona}`
     );
     const dataAsJson = await data.json();
     return dataAsJson;
@@ -23,13 +24,20 @@ export default function UnidadPopUp({ match }) {
    * @return {void}
    */
   const addPersona = (tipoPersona, documento) => {
-    console.log('ADD PERSONA!');
     fetch(
-      `http://localhost:8080/unidades/${unidad.id}/${unidad.piso}/${unidad.numero}/agregar${tipoPersona}/${documento}`,
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/agregar${tipoPersona}/${documento}`,
       {
         method: 'post'
       }
     );
+  };
+
+  const fetchReclamos = async () => {
+    const data = await fetch(
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/reclamos`
+    );
+    const dataAsJson = await data.json();
+    return dataAsJson;
   };
 
   return (
@@ -43,7 +51,7 @@ export default function UnidadPopUp({ match }) {
             unidad && (
               <PersonasDeUnidad
                 fetchPersonas={() => fetchPersonas('inquilinos')}
-                tipoPersona="Inquilinos"
+                tipoPersona="Inquilino"
                 addPersona={addPersona}
               />
             )
@@ -52,9 +60,21 @@ export default function UnidadPopUp({ match }) {
         <Route
           exact
           path={`${match.url}/duenios`}
-          render={() => unidad && <PersonasDeUnidad fetchPersonas={() => fetchPersonas('duenios')} />}
+          render={() =>
+            unidad && (
+              <PersonasDeUnidad
+                fetchPersonas={() => fetchPersonas('duenios')}
+                tipoPersona="Duenio"
+                addPersona={addPersona}
+              />
+            )
+          }
         />
-        <Route exact path={`${match.url}/reclamos`} render={() => <ListaReclamos id={match.params.id} />} />
+        <Route
+          exact
+          path={`${match.url}/reclamos`}
+          render={() => <ListaReclamos fetchReclamos={() => fetchReclamos()} />}
+        />
       </div>
     </div>
   );
