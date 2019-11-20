@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 /**
  *
- * @param {{codigo:string, piso: string, numero: string, alquilar: function}} props
+ * @param {{accion: function, textoBoton: string}} props
  */
-export default function UnidadAlquilar({ codigo, piso, numero, alquilar }) {
+export default function UnidadAccion({ accion, textoBoton }) {
   const [documento, setDocumento] = useState('');
   const handleInput = event => setDocumento(event.target.value);
 
   const handleSubmit = () => {
-    alquilar(documento);
+    accion(documento);
   };
 
   return (
@@ -22,7 +22,7 @@ export default function UnidadAlquilar({ codigo, piso, numero, alquilar }) {
       >
         <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
         <button type="submit" className="button">
-          Alquilar
+          {textoBoton}
         </button>
       </form>
     </div>

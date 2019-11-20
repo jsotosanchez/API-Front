@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
-import UnidadAlquilar from './UnidadAlquilar';
+import UnidadAccion from './UnidadAccion';
 import { useUnidad } from './hooks/useUnidad';
 
 export default function UnidadPopUp({ match }) {
@@ -43,6 +43,15 @@ export default function UnidadPopUp({ match }) {
   const alquilar = async documento => {
     fetch(
       `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/alquilar/${documento}`,
+      {
+        method: 'post'
+      }
+    );
+  };
+
+  const transferir = async documento => {
+    fetch(
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/transferir/${documento}`,
       {
         method: 'post'
       }
@@ -94,16 +103,12 @@ export default function UnidadPopUp({ match }) {
         <Route
           exact
           path={`${match.url}/alquilar`}
-          render={() =>
-            unidad && (
-              <UnidadAlquilar
-                codigo={unidad.edificio.codigo}
-                piso={unidad.piso}
-                numero={unidad.numero}
-                alquilar={alquilar}
-              />
-            )
-          }
+          render={() => unidad && <UnidadAccion accion={alquilar} textoBoton="Alquilar" />}
+        />
+        <Route
+          exact
+          path={`${match.url}/transferir`}
+          render={() => unidad && <UnidadAccion accion={transferir} textoBoton="Transferir" />}
         />
       </div>
     </div>

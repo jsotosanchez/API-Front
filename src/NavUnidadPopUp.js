@@ -17,6 +17,11 @@ export default function NavUnidadPopUp({ url, habitado, liberar }) {
         <Link to={`${url}/reclamos`} className="link">
           <li>Reclamos</li>
         </Link>
+        {
+          <Link to={`${url}/transferir`} className="link">
+            <li>Transferir</li>
+          </Link>
+        }
         {!habitado && (
           <Link to={`${url}/alquilar`} className="link">
             <li>Alquilar</li>
