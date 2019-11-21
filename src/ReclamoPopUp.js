@@ -16,6 +16,8 @@ export default function ReclamoPopUp({ match }) {
   const id = match.params.id;
   const reclamo = useReclamo(id);
   // @ts-ignore
+  const usuario = reclamo.usuario;
+  // @ts-ignore
   const [estado, setEstado] = useState(reclamo.estado);
 
   const handleInputEstado = event => {
@@ -30,12 +32,21 @@ export default function ReclamoPopUp({ match }) {
             <section>img</section>
             <section>
               <h2>
-                Estado:{' '}
+                Estado:
                 {
                   // @ts-ignore
                   reclamo.estado
                 }
               </h2>
+              {usuario && (
+                <h2>
+                  Usuario:
+                  {
+                    // @ts-ignore
+                    usuario.nombre
+                  }
+                </h2>
+              )}
               <p>
                 <b>Ubicación: </b>
                 {

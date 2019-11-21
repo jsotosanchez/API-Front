@@ -4,19 +4,19 @@ import { useState, useEffect, useMemo } from 'react';
  *
  * @param {function(): Promise} fetchReclamos
  */
-function useReclamos(fetchReclamos) {
+function useReclamos(fetchReclamos, estado, filtroUsuario) {
   const [reclamos, setReclamos] = useState([]);
 
   useEffect(() => {
     fetchReclamos().then(setReclamos);
     return () => undefined;
-  }, [fetchReclamos]);
+  }, [fetchReclamos, estado, filtroUsuario]);
 
   return reclamos;
 }
 
 export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario) {
-  const reclamos = useReclamos(fetchReclamos);
+  const reclamos = useReclamos(fetchReclamos, estado, filtroUsuario);
   return useMemo(
     () =>
       reclamos.filter(

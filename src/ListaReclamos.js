@@ -25,14 +25,18 @@ function ListaReclamos({ match, fetchReclamos }) {
         Buscar:
         <input type="text" name="nombre" placeholder="persona o edificio" onChange={handleInputNombre} />
       </label>
-      <select onChange={handleInputEstado}>
-        <option value="nuevo">Nuevo</option>
-        <option value="abierto">Abierto</option>
-        <option value="enProceso">En Proceso</option>
-        <option value="desestimado">Desestimado</option>
-        <option value="anulado">Anulado</option>
-        <option value="terminado">Terminado</option>
-      </select>
+      <label>
+        Estado:
+        <select onChange={handleInputEstado}>
+          <option value="nuevo">Nuevo</option>
+          <option value="abierto">Abierto</option>
+          <option value="enProceso">En Proceso</option>
+          <option value="desestimado">Desestimado</option>
+          <option value="anulado">Anulado</option>
+          <option value="terminado">Terminado</option>
+        </select>
+      </label>
+      <button className="button">Hacer reclamo</button>
       <div className="lista-reclamos">
         {reclamos.map(r => (
           <Link to={`${match.url}/${r.numero}`} key={r.numero}>
