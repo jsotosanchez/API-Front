@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import { Link, Switch, Route } from 'react-router-dom';
 
 import { useFiltrarReclamos } from './hooks/useReclamos';
+
+import GenerarReclamo from './GenerarReclamo';
 import CardReclamo from './CardReclamo';
 import ReclamoPopUp from './ReclamoPopUp';
 
@@ -36,7 +38,9 @@ function ListaReclamos({ match, fetchReclamos }) {
           <option value="terminado">Terminado</option>
         </select>
       </label>
-      <button className="button">Hacer reclamo</button>
+      <Link to={`${match.url}/generarReclamo`}>
+        <button className="button">Hacer reclamo</button>
+      </Link>
       <div className="lista-reclamos">
         {reclamos.map(r => (
           <Link to={`${match.url}/${r.numero}`} key={r.numero}>
@@ -45,6 +49,7 @@ function ListaReclamos({ match, fetchReclamos }) {
         ))}
       </div>
       <Switch>
+        <Route exact path={`${match.url}/generarReclamo`} component={GenerarReclamo} />
         <Route path={`${match.url}/:id`} component={ReclamoPopUp} />
       </Switch>
     </div>
