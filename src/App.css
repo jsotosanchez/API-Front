@@ -101,6 +101,7 @@ nav {
 
 .button:hover {
   background-color: #e63946;
+  cursor: pointer;
 }
 
 input {
