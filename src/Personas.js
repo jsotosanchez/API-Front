@@ -28,10 +28,6 @@ export default function Personas() {
     deletePersona(doc);
   };
 
-  const buttonStyle = {
-    margin: '0px 10px 0px 10px'
-  };
-
   return (
     <div>
       <label>
@@ -45,7 +41,7 @@ export default function Personas() {
       <button onClick={agregarPersona} className="button">
         Agregar
       </button>
-      <button style={buttonStyle} onClick={eliminarPersona} className="button">
+      <button onClick={eliminarPersona} className="button">
         Eliminar
       </button>
       <ListaPersonas fetchPersonas={fetchPersonas} />
