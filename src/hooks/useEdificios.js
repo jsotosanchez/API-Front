@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 
-function useEdificios() {
+export function useEdificios() {
   const [edificios, setEdificios] = useState([]);
   const fetchEdificios = async () => {
     const data = await fetch('http://localhost:8080/edificios');
