@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import { useEdificios } from './hooks/useEdificios';
 
 const generarReclamo = (edificio, documento, piso, numero, ubicacion, descripcion) => {
+  console.log('codigo', edificio);
+  console.log('documento', documento);
+  console.log('piso', piso);
+  console.log('numero', numero);
+  console.log('ubicacion', ubicacion);
+  console.log('descripcion', descripcion);
   fetch(`http://localhost:8080/reclamos/${edificio}/${piso}/${numero}/${documento}/${ubicacion}/${descripcion}`, {
     method: 'POST'
   });
@@ -16,7 +22,7 @@ const buttonStyle = {
 export default function GenerarReclamo() {
   const edificios = useEdificios();
 
-  const [edificio, setEdificio] = useState('');
+  const [edificio, setEdificio] = useState(1);
   const [documento, setDocumento] = useState('');
   const [piso, setPiso] = useState('');
   const [numero, setNumero] = useState('');
