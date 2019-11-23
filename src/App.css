@@ -185,10 +185,13 @@ select {
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: #f7f6f6;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  border: none;
+  background-color: #466365;
+  border-radius: 3%;
 }
 
 .close:hover,

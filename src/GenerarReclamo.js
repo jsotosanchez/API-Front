@@ -41,8 +41,8 @@ export default function GenerarReclamo() {
 
   return (
     <div className="modal">
-      <button className="close">X</button>
       <div className="modal-content">
+        <button className="close">X</button>
         <form
           className="form"
           onSubmit={event => {
