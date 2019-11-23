@@ -17,13 +17,13 @@ export default function App() {
     <SessionContext.Provider value={contexto}>
       <Router>
         <div className="App">
-          <Nav />
+          {contexto.isLoggedIn() && <Nav />}
           <Switch>
-            <Route path="/edificios" component={Edificios} />
-            <Route path="/reclamos" component={Reclamos} />
-            <Route path="/personas" component={Personas} />
+            {contexto.isLoggedIn() && <Route path="/edificios" component={Edificios} />}
+            {contexto.isLoggedIn() && <Route path="/reclamos" component={Reclamos} />}
+            {contexto.isLoggedIn() && <Route path="/personas" component={Personas} />}
             <Route path="/login" component={Login} />
-            <Redirect exact from="/" to="/login" />
+            <Redirect to="/login" />
           </Switch>
         </div>
       </Router>

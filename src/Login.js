@@ -1,13 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { usePersona } from './hooks/usePersona';
+import { useSessionContext, TIPO_USUARIO } from './SessionContext';
 
 export default function Login() {
+  const [documento, setDocumento] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState(null);
+  const history = useHistory();
+  /**@type {import('./SessionContext').SessionContext} */
+  const sessionContext = useSessionContext();
+  const { persona, setDocumento: setDocumentoPersona } = usePersona();
+
+  console.log('documento', documento);
+  useEffect(() => {
+    if (Object.keys(persona).length) {
+      console.log('documento en useEffect', documento);
+
+      sessionContext.setDocumento(documento);
+      sessionContext.setTipoUsuario(tipoUsuario);
+
+      history.replace('/edificios');
+    }
+    return () => {};
+  }, [persona, documento, history, sessionContext, tipoUsuario]);
+
+  const handleDocumento = event => {
+    setDocumento(event.target.value);
+  };
+
+  const handleTipoUsuario = event => {
+    setTipoUsuario(event.target.value);
+  };
+
+  const handleSubmitForm = event => {
+    event.preventDefault();
+    if (!documento || !tipoUsuario) {
+      return;
+      // set error
+    }
+    setDocumentoPersona(documento);
+  };
+
   return (
-    <form className="form login">
+    <form className="form login" onSubmit={handleSubmitForm}>
+      <div className="form-row">
+        <div className="form-group">
+          <label>
+            Usuario
+            <input
+              type="radio"
+              name="tipoUsuario"
+              value={TIPO_USUARIO.USUARIO}
+              onChange={handleTipoUsuario}
+              checked={tipoUsuario === TIPO_USUARIO.USUARIO}
+            />
+          </label>
+          <label>
+            Administrador
+            <input
+              type="radio"
+              name="tipoUsuario"
+              value={TIPO_USUARIO.ADMINISTRADOR}
+              onChange={handleTipoUsuario}
+              checked={tipoUsuario === TIPO_USUARIO.ADMINISTRADOR}
+            />
+          </label>
+        </div>
+      </div>
+
       <div className="form-row">
         <div className="form-group">
           <label>
             Documento
-            <input type="text" className="form-control" placeholder="CPA3449614/admin" />
+            <input type="text" className="form-control" placeholder="CPA3449614/admin" onBlur={handleDocumento} />
           </label>
         </div>
       </div>
@@ -20,7 +86,9 @@ export default function Login() {
         </div>
       </div>
       <div className="form-row">
-        <button className="button">Conectarse</button>
+        <button type="submit" className="button">
+          Conectarse
+        </button>
       </div>
     </form>
   );
