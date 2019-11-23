@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useEdificio } from './hooks/useEdificio';
 import ListaUnidades from './ListaUnidades';
@@ -53,9 +53,10 @@ function DetalleEdificio({ match }) {
           render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habilitados')} />}
         />
         <Route
-          path={`${match.url}/reportes`}
+          path={`${match.url}/reclamos`}
           render={() => <ListaReclamos fetchReclamos={() => fetchReclamos(match.params.id)} />}
         />
+        <Redirect from="" to={`${match.url}/reclamos`} />
       </Switch>
     </div>
   );

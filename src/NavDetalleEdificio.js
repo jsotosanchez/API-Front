@@ -20,7 +20,7 @@ export default function NavDetalleEdificio({ url }) {
         <Link to={`${url}/habilitados`} className="link">
           <li>Habilitados</li>
         </Link>
-        <Link to={`${url}/reportes`} className="link">
+        <Link to={`${url}/reclamos`} className="link">
           <li>Reclamos</li>
         </Link>
       </ul>
