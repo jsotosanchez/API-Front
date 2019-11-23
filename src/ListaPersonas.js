@@ -10,10 +10,12 @@ export default function ListaPersonas({ fetchPersonas }) {
 
   return (
     <div className="form">
-      <label>
-        Buscar:
-        <input type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
-      </label>
+      <div className="form-row">
+        <label>
+          Buscar:
+          <input type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
+        </label>
+      </div>
       <div className="lista-unidades">
         {personas.map(u => (
           <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} className="card" />
