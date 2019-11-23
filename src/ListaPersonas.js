@@ -9,7 +9,7 @@ export default function ListaPersonas({ fetchPersonas }) {
   const handleInputFiltro = event => setFiltro(event.target.value);
 
   return (
-    <div>
+    <div className="form">
       <label>
         Buscar:
         <input type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
