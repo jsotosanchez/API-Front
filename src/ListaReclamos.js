@@ -21,9 +21,13 @@ function ListaReclamos({ match, fetchReclamos }) {
     setEstado(event.target.value);
   };
 
+  const buttonStyle = {
+    marginTop: '2.5em'
+  };
+
   return (
     <div>
-      <form className="form">
+      <div className="form">
         <div className="form-row">
           <div className="form-group col-3">
             <label>
@@ -50,12 +54,12 @@ function ListaReclamos({ match, fetchReclamos }) {
               </select>
             </label>
           </div>
+          <Link to={`${match.url}/generarReclamo`}>
+            <button style={buttonStyle} className="button">
+              Hacer reclamo
+            </button>
+          </Link>
         </div>
-      </form>
-      <div className="form-row">
-        <Link to={`${match.url}/generarReclamo`}>
-          <button className="button">Hacer reclamo</button>
-        </Link>
       </div>
       <div className="lista-reclamos">
         {reclamos.map(r => (
