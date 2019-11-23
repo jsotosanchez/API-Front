@@ -31,41 +31,22 @@ export default function ReclamoPopUp({ match }) {
           <div className="container">
             <section>img</section>
             <section>
-              <h2>
-                Estado:
-                {
-                  // @ts-ignore
-                  reclamo.estado
-                }
-              </h2>
-              {usuario && (
-                <h2>
-                  Usuario:
-                  {
-                    // @ts-ignore
-                    usuario.nombre
-                  }
-                </h2>
-              )}
+              <h2>Estado: {reclamo.estado}</h2>
+              {usuario && <h2>Usuario: {usuario.nombre}</h2>}
               <p>
                 <b>Ubicación: </b>
-                {
-                  // @ts-ignore
-                  reclamo.ubicacion
-                }
+                {reclamo.ubicacion}
               </p>
               <p>
                 <b>Descripción: </b>
-                {
-                  // @ts-ignore
-                  reclamo.descripcion
-                }
+                {reclamo.descripcion}
               </p>
               <form
                 onSubmit={event => {
                   event.preventDefault();
                   actualizarEstado(estado, id);
                 }}
+                className="form"
               >
                 <select onChange={handleInputEstado}>
                   <option value="nuevo">Nuevo</option>
