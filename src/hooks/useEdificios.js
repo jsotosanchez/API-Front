@@ -5,16 +5,16 @@ import { useSessionContext } from '../SessionContext';
 export function useEdificios() {
   const [edificios, setEdificios] = useState([]);
   const contexto = useSessionContext();
-  const fetchEdificios = async () => {
-    const data = await fetchToServer('http://localhost:8080/edificios', contexto);
-    const dataAsJson = await data.json();
-    return dataAsJson;
-  };
 
   useEffect(() => {
+    const fetchEdificios = async () => {
+      const data = await fetchToServer('http://localhost:8080/edificios', contexto);
+      const dataAsJson = await data.json();
+      return dataAsJson;
+    };
     fetchEdificios().then(setEdificios);
     return () => undefined;
-  }, []);
+  }, [contexto]);
 
   return edificios;
 }
