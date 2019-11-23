@@ -30,20 +30,29 @@ export default function Personas() {
 
   return (
     <div>
-      <label>
-        Documento:
-        <input type="text" name="documento" placeholder="DNI1234567" onChange={handleInputDoc} />
-      </label>
-      <label>
-        Nombre:
-        <input type="text" name="Nombre" placeholder="Pepito Perez" onChange={handleInputNombre} />
-      </label>
-      <button onClick={agregarPersona} className="button">
-        Agregar
-      </button>
-      <button onClick={eliminarPersona} className="button">
-        Eliminar
-      </button>
+      <div className="form">
+        <div className="form-row">
+          <div className="form-group col-3">
+            <label>
+              Documento:
+              <input type="text" name="documento" placeholder="DNI1234567" onChange={handleInputDoc} />
+            </label>
+          </div>
+          <div className="form-group col-3">
+            <label>
+              Nombre:
+              <input type="text" name="Nombre" placeholder="Pepito Perez" onChange={handleInputNombre} />
+            </label>
+          </div>
+
+          <button onClick={agregarPersona} className="button">
+            Agregar
+          </button>
+          <button onClick={eliminarPersona} className="button">
+            Eliminar
+          </button>
+        </div>
+      </div>
       <ListaPersonas fetchPersonas={fetchPersonas} />
     </div>
   );

@@ -14,9 +14,13 @@ export default function Edificios({ match }) {
    */
   const handleChange = event => setFiltro(event.target.value);
 
+  const formStyle = {
+    marginBottom: 0
+  };
+
   return (
     <div>
-      <form className="form">
+      <form className="form" style={formStyle}>
         <div className="form-row">
           <label>
             Buscar:

@@ -97,6 +97,7 @@ nav {
   font-size: 14px;
   color: #f7f6f6;
   padding: 7px 10px 7px 10px;
+  max-height: 2.5em;
 }
 
 .button:hover {
@@ -143,12 +144,6 @@ select {
   max-height: 100vh;
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
-}
-
-@media only screen and (min-width: 1000) {
-  .lista-unidades {
-    grid-template-columns: 33% 33% 33%;
-  }
 }
 
 .nav-buttons {

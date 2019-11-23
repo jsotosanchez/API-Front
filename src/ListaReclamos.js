@@ -61,7 +61,7 @@ function ListaReclamos({ match, fetchReclamos }) {
           </Link>
         </div>
       </div>
-      <div className="lista-reclamos">
+      <div className="lista-unidades">
         {reclamos.map(r => (
           <Link to={`${match.url}/${r.numero}`} key={r.numero}>
             <CardReclamo estado={r.estado} nombre={r.usuario.nombre} edificio={r.edificio.nombre} className="card" />
