@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { usePersona } from './hooks/usePersona';
+import { useLogin } from './hooks/useLogin';
 import { useSessionContext, TIPO_USUARIO } from './SessionContext';
 
 export default function Login() {
@@ -9,10 +9,10 @@ export default function Login() {
   const [tipoUsuario, setTipoUsuario] = useState('');
   const history = useHistory();
   const sessionContext = useSessionContext();
-  const { persona, setDocumento: setDocumentoPersona } = usePersona();
+  const { persona, logIn } = useLogin();
 
   useEffect(() => {
-    if (Object.keys(persona).length) {
+    if (persona) {
       sessionContext.setDocumento(documento);
       sessionContext.setTipoUsuario(tipoUsuario);
 
@@ -35,7 +35,7 @@ export default function Login() {
       return;
       // set error
     }
-    setDocumentoPersona(documento);
+    logIn(tipoUsuario, documento, '');
   };
 
   return (
