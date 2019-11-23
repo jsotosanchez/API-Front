@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSessionContext } from './SessionContext';
 
 export default function Nav() {
+  const { isAdmin } = useSessionContext();
+
   return (
     <nav>
       <ul className="nav-links">
@@ -11,9 +14,11 @@ export default function Nav() {
         <Link to="/reclamos">
           <li>Reclamos</li>
         </Link>
-        <Link to="/personas">
-          <li>Personas</li>
-        </Link>
+        {isAdmin() && (
+          <Link to="/personas">
+            <li>Personas</li>
+          </Link>
+        )}
       </ul>
     </nav>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SessionContext, initialState } from './SessionContext';
+import { SessionContext, initialState, TIPO_USUARIO } from './SessionContext';
 
 /**
  *
@@ -26,6 +26,10 @@ export default function SessionContainer({ children }) {
     return Boolean(estado.documento);
   }
 
+  function isAdmin() {
+    return isLoggedIn() && Boolean(estado.tipoUsuario === TIPO_USUARIO.ADMINISTRADOR);
+  }
+
   /**
    * @type {import('./SessionContext').SessionContext}
    */
@@ -33,7 +37,8 @@ export default function SessionContainer({ children }) {
     estado,
     setDocumento,
     setTipoUsuario,
-    isLoggedIn
+    isLoggedIn,
+    isAdmin
   };
   console.log('contexto', contexto);
   return <SessionContext.Provider value={contexto}>{children}</SessionContext.Provider>;
