@@ -21,13 +21,17 @@ function ListaUnidades({ match, id }) {
   const handleInputPiso = event => setPiso(event.target.value);
   return (
     <div>
-      <label>
-        Piso:
-        <input type="number" name="piso" placeholder="" onChange={handleInputPiso} />
-      </label>
-      <button className="button" onClick={() => filtrarHabitadas()}>
-        {verSoloDisponibles ? 'Disponibles' : 'No disponibles'}
-      </button>
+      <div className="form">
+        <div className="form-row">
+          <label>
+            Piso:
+            <input type="number" name="piso" placeholder="" onChange={handleInputPiso} />
+          </label>
+          <button className="button" onClick={() => filtrarHabitadas()}>
+            {verSoloDisponibles ? 'Disponibles' : 'No disponibles'}
+          </button>
+        </div>
+      </div>
       <div className="lista-unidades">
         {unidades.map(u => (
           <Link to={`${match.url}/${u.id}`} key={u.id}>
