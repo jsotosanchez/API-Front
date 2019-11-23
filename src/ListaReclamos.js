@@ -23,24 +23,40 @@ function ListaReclamos({ match, fetchReclamos }) {
 
   return (
     <div>
-      <label>
-        Buscar:
-        <input type="text" name="nombre" placeholder="persona o edificio" onChange={handleInputNombre} />
-      </label>
-      <label>
-        Estado:
-        <select onChange={handleInputEstado}>
-          <option value="nuevo">Nuevo</option>
-          <option value="abierto">Abierto</option>
-          <option value="enProceso">En Proceso</option>
-          <option value="desestimado">Desestimado</option>
-          <option value="anulado">Anulado</option>
-          <option value="terminado">Terminado</option>
-        </select>
-      </label>
-      <Link to={`${match.url}/generarReclamo`}>
-        <button className="button">Hacer reclamo</button>
-      </Link>
+      <form className="form">
+        <div className="form-row">
+          <div className="form-group col-3">
+            <label>
+              Buscar:
+              <input
+                className="form-control"
+                type="text"
+                name="nombre"
+                placeholder="persona o edificio"
+                onChange={handleInputNombre}
+              />
+            </label>
+          </div>
+          <div className="form-group col-3">
+            <label>
+              Estado:
+              <select className="form-control" onChange={handleInputEstado}>
+                <option value="nuevo">Nuevo</option>
+                <option value="abierto">Abierto</option>
+                <option value="enProceso">En Proceso</option>
+                <option value="desestimado">Desestimado</option>
+                <option value="anulado">Anulado</option>
+                <option value="terminado">Terminado</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </form>
+      <div className="form-row">
+        <Link to={`${match.url}/generarReclamo`}>
+          <button className="button">Hacer reclamo</button>
+        </Link>
+      </div>
       <div className="lista-reclamos">
         {reclamos.map(r => (
           <Link to={`${match.url}/${r.numero}`} key={r.numero}>
