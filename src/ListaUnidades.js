@@ -40,7 +40,10 @@ function ListaUnidades({ match, id }) {
         ))}
       </div>
       <Switch>
-        <Route path={`${match.url}/:id`} component={UnidadPopUp} />
+        <Route
+          path={`${match.url}/:id`}
+          render={({ match: innerMatch }) => <UnidadPopUp match={innerMatch} retornoUrl={match.url} />}
+        />
       </Switch>
     </div>
   );

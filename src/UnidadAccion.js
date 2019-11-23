@@ -21,10 +21,7 @@ export default function UnidadAccion({ accion, textoBoton }) {
         }}
         className="form"
       >
-        <label>
-          Persona destino:
-          <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
-        </label>
+        <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
         <button type="submit" className="button">
           {textoBoton}
         </button>

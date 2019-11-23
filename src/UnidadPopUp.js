@@ -1,13 +1,18 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory, Redirect } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
 import UnidadAccion from './UnidadAccion';
 import { useUnidad } from './hooks/useUnidad';
 
-export default function UnidadPopUp({ match }) {
+export default function UnidadPopUp({ match, retornoUrl }) {
   const unidad = useUnidad(match.params.id);
+  const history = useHistory();
+
+  const handleClose = event => {
+    history.replace(retornoUrl);
+  };
 
   const fetchPersonas = async tipoPersona => {
     const data = await fetch(
@@ -67,9 +72,11 @@ export default function UnidadPopUp({ match }) {
 
   return (
     <div className="modal">
-      <button className="close">X</button>
       <div className="modal-content">
         {unidad && <NavUnidadPopUp url={match.url} habitado={unidad.habitado} liberar={liberar} />}
+        <button onClick={handleClose} className="close">
+          X
+        </button>
         <Route
           path={`${match.url}/inquilinos`}
           render={() =>
@@ -110,6 +117,7 @@ export default function UnidadPopUp({ match }) {
           path={`${match.url}/transferir`}
           render={() => unidad && <UnidadAccion accion={transferir} textoBoton="Transferir" />}
         />
+        <Redirect exact from="/" to={`${match.url}/reclamos`} />
       </div>
     </div>
   );

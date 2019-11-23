@@ -18,7 +18,7 @@ export default function ListaPersonas({ fetchPersonas }) {
       </div>
       <div className="lista-unidades">
         {personas.map(u => (
-          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} className="card" />
+          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} />
         ))}
       </div>
     </div>

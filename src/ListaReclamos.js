@@ -29,7 +29,7 @@ function ListaReclamos({ match, fetchReclamos }) {
     <div>
       <div className="form">
         <div className="form-row">
-          <div className="form-group col-3">
+          <div className="form-group col-4">
             <label>
               Buscar:
               <input
@@ -41,7 +41,7 @@ function ListaReclamos({ match, fetchReclamos }) {
               />
             </label>
           </div>
-          <div className="form-group col-3">
+          <div className="form-group col-4">
             <label>
               Estado:
               <select className="form-control" onChange={handleInputEstado}>

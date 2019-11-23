@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useReclamo } from './hooks/useReclamo';
+import { useHistory } from 'react-router-dom';
 
 /**
  *
@@ -14,6 +15,7 @@ const actualizarEstado = (estado, id) => {
 
 export default function ReclamoPopUp({ match }) {
   const id = match.params.id;
+  const history = useHistory();
   const reclamo = useReclamo(id);
   // @ts-ignore
   const usuario = reclamo.usuario;
@@ -23,10 +25,16 @@ export default function ReclamoPopUp({ match }) {
   const handleInputEstado = event => {
     setEstado(event.target.value);
   };
+
+  const handleClose = event => {
+    history.goBack();
+  };
   return (
     <div className="modal">
-      <button className="close">X</button>
       <div className="modal-content">
+        <button onClick={handleClose} className="close">
+          X
+        </button>
         {reclamo && (
           <div className="container">
             <section>img</section>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useEdificios } from './hooks/useEdificios';
 
@@ -20,6 +21,7 @@ const buttonStyle = {
 };
 
 export default function GenerarReclamo() {
+  const history = useHistory();
   const edificios = useEdificios();
 
   const [edificio, setEdificio] = useState(1);
@@ -39,10 +41,16 @@ export default function GenerarReclamo() {
   const handleUbicacion = event => setUbicacion(event.target.value);
   const handleDescripcion = event => setDescripcion(event.target.value);
 
+  const handleClose = event => {
+    history.goBack();
+  };
+
   return (
     <div className="modal">
       <div className="modal-content">
-        <button className="close">X</button>
+        <button onClick={handleClose} className="close">
+          X
+        </button>
         <form
           className="form"
           onSubmit={event => {
@@ -127,7 +135,9 @@ export default function GenerarReclamo() {
             <button type="submit" style={buttonStyle} className="button">
               Generar
             </button>
-            <button className="button">Cancelar</button>
+            <button className="button" onClick={handleClose}>
+              Cancelar
+            </button>
           </div>
         </form>
       </div>

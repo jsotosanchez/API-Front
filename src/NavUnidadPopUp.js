@@ -28,13 +28,13 @@ export default function NavUnidadPopUp({ url, habitado, liberar }) {
           </Link>
         )}
       </ul>
-      <ul className="nav-buttons">
-        {habitado && (
+      {habitado && (
+        <ul className="nav-buttons">
           <button onClick={handleClick} className="button">
             Liberar
           </button>
-        )}
-      </ul>
+        </ul>
+      )}
     </nav>
   );
 }
