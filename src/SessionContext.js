@@ -1,6 +1,18 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 
-export const SessionContext = createContext({});
+/**
+ *  @typedef{{
+ *  estado: State,
+ *  setDocumento : (documento: string)=> void,
+ *  setTipoUsuario : (tipo: string)=> void,
+ *  isLoggedIn: ()=> boolean
+ * }} SessionContext
+ */
+
+/**
+ * @type {React.Context<SessionContext>}
+ */
+export const SessionContext = createContext(undefined);
 
 export const useSessionContext = () => {
   return useContext(SessionContext);
@@ -22,45 +34,3 @@ export const initialState = {
   documento: '',
   tipoUsuario: ''
 };
-
-/**
- *  @typedef{{
- *  estado: State,
- *  setDocumento : (documento: string)=> void,
- *  setTipoUsuario : (tipo: string)=> void,
- *  isLoggedIn: ()=> boolean
- * }} SessionContext
- */
-
-/**
- * @return {SessionContext}
- */
-export function useContextoSesion() {
-  const [estado, setSession] = useState(initialState);
-
-  /**
-   * @param {string} documento
-   */
-  function setDocumento(documento) {
-    setSession(estado => ({ ...estado, documento }));
-  }
-
-  /**
-   * @param {'administrador' | 'usuario'} tipoUsuario
-   */
-  function setTipoUsuario(tipoUsuario) {
-    setSession(estado => ({ ...estado, tipoUsuario }));
-  }
-
-  function isLoggedIn() {
-    console.log('isLoggedIn', Boolean(estado.documento), estado);
-    return Boolean(estado.documento);
-  }
-
-  return {
-    estado,
-    setDocumento,
-    setTipoUsuario,
-    isLoggedIn
-  };
-}

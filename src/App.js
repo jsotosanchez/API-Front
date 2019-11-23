@@ -7,26 +7,33 @@ import Reclamos from './Reclamos';
 import Edificios from './Edificios';
 import Personas from './Personas';
 import Nav from './Nav';
-import { SessionContext, useContextoSesion } from './SessionContext';
+import { useSessionContext } from './SessionContext';
+import SessionContainer from './SessionContainer';
 import Login from './Login';
 
-export default function App() {
-  const contexto = useContextoSesion();
+function App() {
+  const contexto = useSessionContext();
 
   return (
-    <SessionContext.Provider value={contexto}>
-      <Router>
-        <div className="App">
-          {contexto.isLoggedIn() && <Nav />}
-          <Switch>
-            {contexto.isLoggedIn() && <Route path="/edificios" component={Edificios} />}
-            {contexto.isLoggedIn() && <Route path="/reclamos" component={Reclamos} />}
-            {contexto.isLoggedIn() && <Route path="/personas" component={Personas} />}
-            <Route path="/login" component={Login} />
-            <Redirect to="/login" />
-          </Switch>
-        </div>
-      </Router>
-    </SessionContext.Provider>
+    <Router>
+      <div className="App">
+        {contexto.isLoggedIn() && <Nav />}
+        <Switch>
+          {contexto.isLoggedIn() && <Route path="/edificios" component={Edificios} />}
+          {contexto.isLoggedIn() && <Route path="/reclamos" component={Reclamos} />}
+          {contexto.isLoggedIn() && <Route path="/personas" component={Personas} />}
+          <Route path="/login" component={Login} />
+          <Redirect to="/login" />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+export default function appWithSession() {
+  return (
+    <SessionContainer>
+      <App />
+    </SessionContainer>
   );
 }

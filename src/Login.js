@@ -6,17 +6,13 @@ import { useSessionContext, TIPO_USUARIO } from './SessionContext';
 
 export default function Login() {
   const [documento, setDocumento] = useState('');
-  const [tipoUsuario, setTipoUsuario] = useState(null);
+  const [tipoUsuario, setTipoUsuario] = useState('');
   const history = useHistory();
-  /**@type {import('./SessionContext').SessionContext} */
   const sessionContext = useSessionContext();
   const { persona, setDocumento: setDocumentoPersona } = usePersona();
 
-  console.log('documento', documento);
   useEffect(() => {
     if (Object.keys(persona).length) {
-      console.log('documento en useEffect', documento);
-
       sessionContext.setDocumento(documento);
       sessionContext.setTipoUsuario(tipoUsuario);
 

@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useSessionContext } from '../SessionContext';
+import { fetchToServer } from '../http';
 
 export function usePersona() {
   const [persona, setPersona] = useState({});
   const [documento, setDocumento] = useState('');
+  const context = useSessionContext();
 
   useEffect(() => {
     const fetchPersona = async () => {
-      const data = await fetch(`http://localhost:8080/personas/${documento}`);
-      if (data.status >= 400) {
-        throw new Error(await data.json());
-      }
+      const url = `http://localhost:8080/personas/${documento}`;
+      const data = await fetchToServer(url, context);
       const dataAsJson = await data.json();
       return dataAsJson;
     };
@@ -19,7 +20,7 @@ export function usePersona() {
         .catch(() => setPersona({}));
     }
     return () => undefined;
-  }, [documento]);
+  }, [documento, context]);
 
   return { persona, setDocumento };
 }
