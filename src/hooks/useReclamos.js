@@ -8,8 +8,10 @@ function useReclamos(fetchReclamos, estado, filtroUsuario) {
   const [reclamos, setReclamos] = useState([]);
 
   useEffect(() => {
-    fetchReclamos().then(setReclamos);
-    return () => undefined;
+    let callback = true;
+
+    fetchReclamos().then(data => callback && setReclamos(data));
+    return () => (callback = false);
   }, [fetchReclamos, estado, filtroUsuario]);
 
   return reclamos;
