@@ -40,6 +40,5 @@ export default function SessionContainer({ children }) {
     isLoggedIn,
     isAdmin
   };
-  console.log('contexto', contexto);
   return <SessionContext.Provider value={contexto}>{children}</SessionContext.Provider>;
 }

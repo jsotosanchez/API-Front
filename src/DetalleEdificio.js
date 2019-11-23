@@ -30,12 +30,7 @@ function DetalleEdificio({ match }) {
   return (
     <div>
       <h2 className={'nav-titulo'}>
-        <b>
-          {
-            // @ts-ignore
-            edificio.nombre
-          }
-        </b>
+        <b>{edificio.nombre}</b>
       </h2>
       <NavDetalleEdificio url={match.url} />
       <Switch>

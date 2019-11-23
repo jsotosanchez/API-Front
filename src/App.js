@@ -7,6 +7,7 @@ import Reclamos from './Reclamos';
 import Edificios from './Edificios';
 import Personas from './Personas';
 import Nav from './Nav';
+import AdminOnly from './AdminOnly';
 import { useSessionContext } from './SessionContext';
 import SessionContainer from './SessionContainer';
 import Login from './Login';
@@ -21,7 +22,11 @@ function App() {
         <Switch>
           {contexto.isLoggedIn() && <Route path="/edificios" component={Edificios} />}
           {contexto.isLoggedIn() && <Route path="/reclamos" component={Reclamos} />}
-          {contexto.isLoggedIn() && <Route path="/personas" component={Personas} />}
+          {contexto.isLoggedIn() && (
+            <AdminOnly>
+              <Route path="/personas" component={Personas} />
+            </AdminOnly>
+          )}
           <Route path="/login" component={Login} />
           <Redirect to="/login" />
         </Switch>
