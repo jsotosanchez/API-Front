@@ -3,7 +3,6 @@ import { Link, Route } from 'react-router-dom';
 import { useFiltrarEdificios } from './hooks/useEdificios';
 import CardEdificio from './CardEdificio';
 import DetalleEdificio from './DetalleEdificio';
-import classNames from 'classnames';
 
 export default function Edificios({ match }) {
   const [filtro, setFiltro] = useState('');
@@ -17,11 +16,13 @@ export default function Edificios({ match }) {
 
   return (
     <div>
-      <form className={classNames('form-filter')}>
-        <label>
-          Buscar:
-          <input type="text" name="name" placeholder="Nombre" onChange={handleChange} />
-        </label>
+      <form className="form">
+        <div className="form-row">
+          <label>
+            Buscar:
+            <input className="form-control" type="text" name="name" placeholder="Nombre" onChange={handleChange} />
+          </label>
+        </div>
       </form>
       <div className="container">
         <section>
