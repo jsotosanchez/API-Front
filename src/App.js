@@ -8,6 +8,7 @@ import Edificios from './Edificios';
 import Personas from './Personas';
 import Nav from './Nav';
 import { SessionContext, useContextoSesion } from './SessionContext';
+import Login from './Login';
 
 export default function App() {
   const contexto = useContextoSesion();
@@ -21,7 +22,8 @@ export default function App() {
             <Route path="/edificios" component={Edificios} />
             <Route path="/reclamos" component={Reclamos} />
             <Route path="/personas" component={Personas} />
-            <Redirect exact from="/" to="/edificios" />
+            <Route path="/login" component={Login} />
+            <Redirect exact from="/" to="/login" />
           </Switch>
         </div>
       </Router>

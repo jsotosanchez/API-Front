@@ -273,3 +273,10 @@ label {
 .col-3 {
   width: 25%;
 }
+
+.login {
+  display: grid;
+  grid-template-rows: auto;
+  justify-items: center;
+  align-items: center;
+}
