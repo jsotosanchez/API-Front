@@ -19,8 +19,12 @@ export default function UnidadAccion({ accion, textoBoton }) {
           event.preventDefault();
           handleSubmit();
         }}
+        className="form"
       >
-        <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
+        <label>
+          Persona destino:
+          <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
+        </label>
         <button type="submit" className="button">
           {textoBoton}
         </button>

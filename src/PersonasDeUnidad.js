@@ -15,12 +15,13 @@ export default function PersonasDeUnidad({ fetchPersonas, tipoPersona, addPerson
   return (
     <div>
       <form
+        className="form"
         onSubmit={event => {
           event.preventDefault();
           addPersona(tipoPersona, documento);
         }}
       >
-        <input type="text" name="documento" placeholder="documento" onChange={handleInput} />
+        <input type="text" name="documento" placeholder="Documento a agregar" onChange={handleInput} />
         <button type="submit" className="button">
           Agregar
         </button>
