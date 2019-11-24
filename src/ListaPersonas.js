@@ -8,12 +8,16 @@ export default function ListaPersonas({ fetchPersonas, labelClass }) {
 
   const handleInputFiltro = event => setFiltro(event.target.value);
 
+  const inputStyle = {
+    marginLeft: '15px'
+  };
+
   return (
     <div className="form">
       <div className="form-row">
         <label className={labelClass}>
           Buscar:
-          <input type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
+          <input style={inputStyle} type="text" name="filtro" placeholder="nombre o doc" onChange={handleInputFiltro} />
         </label>
       </div>
       <div className="lista-unidades">

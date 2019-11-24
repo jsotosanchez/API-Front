@@ -28,6 +28,10 @@ export default function Personas() {
     deletePersona(doc);
   };
 
+  const inputStyle = {
+    marginLeft: '15px'
+  };
+
   return (
     <div>
       <div className="form">
@@ -35,13 +39,25 @@ export default function Personas() {
           <div className="form-group col-3">
             <label className="texto-blanco">
               Documento:
-              <input type="text" name="documento" placeholder="DNI1234567" onChange={handleInputDoc} />
+              <input
+                style={inputStyle}
+                type="text"
+                name="documento"
+                placeholder="DNI1234567"
+                onChange={handleInputDoc}
+              />
             </label>
           </div>
           <div className="form-group col-3">
             <label className="texto-blanco">
               Nombre:
-              <input type="text" name="Nombre" placeholder="Pepito Perez" onChange={handleInputNombre} />
+              <input
+                style={inputStyle}
+                type="text"
+                name="Nombre"
+                placeholder="Pepito Perez"
+                onChange={handleInputNombre}
+              />
             </label>
           </div>
 
