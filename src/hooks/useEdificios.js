@@ -1,15 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
-import { fetchToServer } from '../http';
-import { useSessionContext } from '../SessionContext';
+import { useState, useMemo } from 'react';
+import { useFetchConToast } from './useHttp';
 
 export function useEdificios() {
   const [edificios, setEdificios] = useState([]);
-  const contexto = useSessionContext();
 
-  useEffect(() => {
-    fetchToServer('http://localhost:8080/edificios', contexto).then(setEdificios);
-    return () => undefined;
-  }, [contexto]);
+  const fetch = useFetchConToast(setEdificios);
+
+  fetch('http://localhost:8080/edificios');
 
   return edificios;
 }

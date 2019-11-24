@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ToastsStore } from 'react-toasts';
 
 import { useSessionContext } from './SessionContext';
 import { useEdificios } from './hooks/useEdificios';
-
-const generarReclamo = (edificio, documento, piso, numero, ubicacion, descripcion) => {
-  fetch(`http://localhost:8080/reclamos/${edificio}/${piso}/${numero}/${documento}/${ubicacion}/${descripcion}`, {
-    method: 'POST'
-  })
-    .then(r => {
-      if (r.status === 200) {
-        ToastsStore.success('Se genero con exito!');
-      }
-    })
-    .catch(r => {
-      ToastsStore.error('Se genero un error');
-    });
-};
+import { usePostConToast } from './hooks/useHttp';
 
 const buttonStyle = {
   marginLeft: '0px'
@@ -30,11 +16,11 @@ export default function GenerarReclamo() {
   const contexto = useSessionContext();
 
   const [edificio, setEdificio] = useState(1);
-  const [documento, setDocumento] = useState(contexto.estado.documento);
   const [piso, setPiso] = useState('');
   const [numero, setNumero] = useState('');
   const [ubicacion, setUbicacion] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const post = usePostConToast();
 
   const handleSelect = event => {
     setEdificio(event.target.value);
@@ -45,7 +31,12 @@ export default function GenerarReclamo() {
   const handleDescripcion = event => setDescripcion(event.target.value);
 
   const handleClose = event => {
+    event.preventDefault();
     history.goBack();
+  };
+
+  const generarReclamo = () => {
+    return post('http://localhost:8080/reclamos/generar', { edificio, piso, numero, ubicacion, descripcion });
   };
 
   return (
@@ -58,7 +49,9 @@ export default function GenerarReclamo() {
           className="form"
           onSubmit={event => {
             event.preventDefault();
-            generarReclamo(edificio, documento, piso, numero, ubicacion, descripcion);
+            generarReclamo().then(() => {
+              history.goBack();
+            });
           }}
         >
           <div className="form-row">

@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {string} url
+ * @param {object} context
+ */
 export async function fetchToServer(url, context) {
   const data = await fetch(url, {
     headers: {
@@ -17,7 +22,8 @@ export async function postToServer(url, body, context) {
     body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
-      'X-Custom-User': JSON.stringify(context.estado)
+      'X-Custom-Documento': context.estado.documento,
+      'X-Custom-TipoUsuario': context.estado.tipoUsuario
     }
   });
   if (data.status >= 400) {
