@@ -43,13 +43,23 @@ export default function Login() {
       <div className="form-row">
         <div className="form-group">
           <label>
-            Usuario
+            Duenio
             <input
               type="radio"
               name="tipoUsuario"
-              value={TIPO_USUARIO.USUARIO}
+              value={TIPO_USUARIO.DUENIO}
               onChange={handleTipoUsuario}
-              checked={tipoUsuario === TIPO_USUARIO.USUARIO}
+              checked={tipoUsuario === TIPO_USUARIO.DUENIO}
+            />
+          </label>
+          <label>
+            Inquilino
+            <input
+              type="radio"
+              name="tipoUsuario"
+              value={TIPO_USUARIO.INQUILINO}
+              onChange={handleTipoUsuario}
+              checked={tipoUsuario === TIPO_USUARIO.INQUILINO}
             />
           </label>
           <label>
