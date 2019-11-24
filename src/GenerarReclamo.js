@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useSessionContext } from './SessionContext';
 import { useEdificios } from './hooks/useEdificios';
 import { usePostConToast } from './hooks/useHttp';
 
@@ -12,8 +11,6 @@ const buttonStyle = {
 export default function GenerarReclamo() {
   const history = useHistory();
   const edificios = useEdificios();
-
-  const contexto = useSessionContext();
 
   const [edificio, setEdificio] = useState(1);
   const [piso, setPiso] = useState('');
@@ -49,9 +46,12 @@ export default function GenerarReclamo() {
           className="form"
           onSubmit={event => {
             event.preventDefault();
-            generarReclamo().then(() => {
-              history.goBack();
-            });
+            generarReclamo().then(
+              () => {
+                history.goBack();
+              },
+              () => {}
+            );
           }}
         >
           <div className="form-row">

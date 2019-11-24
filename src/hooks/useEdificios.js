@@ -1,12 +1,19 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useFetchConToast } from './useHttp';
 
 export function useEdificios() {
   const [edificios, setEdificios] = useState([]);
+  const fetch = useFetchConToast();
 
-  const fetch = useFetchConToast(setEdificios);
+  useEffect(() => {
+    let callback = true;
 
-  fetch('http://localhost:8080/edificios');
+    if (!edificios.length) fetch('http://localhost:8080/edificios').then(data => callback && setEdificios(data));
+
+    return () => {
+      callback = false;
+    };
+  }, [fetch, edificios]);
 
   return edificios;
 }
