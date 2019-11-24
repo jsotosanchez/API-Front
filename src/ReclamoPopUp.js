@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useReclamo } from './hooks/useReclamo';
 import { useHistory } from 'react-router-dom';
+import AdminOnly from './AdminOnly';
 
 /**
  *
@@ -49,25 +50,27 @@ export default function ReclamoPopUp({ match }) {
                 <b>Descripción: </b>
                 {reclamo.descripcion}
               </p>
-              <form
-                onSubmit={event => {
-                  event.preventDefault();
-                  actualizarEstado(estado, id);
-                }}
-                className="form"
-              >
-                <select onChange={handleInputEstado}>
-                  <option value="nuevo">Nuevo</option>
-                  <option value="abierto">Abierto</option>
-                  <option value="enProceso">En proceso</option>
-                  <option value="desestimado">Desestimado</option>
-                  <option value="anulado">Anulado</option>
-                  <option value="terminado">Terminado</option>
-                </select>
-                <button type="submit" className="button">
-                  Cambiar Estado
-                </button>
-              </form>
+              <AdminOnly>
+                <form
+                  onSubmit={event => {
+                    event.preventDefault();
+                    actualizarEstado(estado, id);
+                  }}
+                  className="form"
+                >
+                  <select onChange={handleInputEstado}>
+                    <option value="nuevo">Nuevo</option>
+                    <option value="abierto">Abierto</option>
+                    <option value="enProceso">En proceso</option>
+                    <option value="desestimado">Desestimado</option>
+                    <option value="anulado">Anulado</option>
+                    <option value="terminado">Terminado</option>
+                  </select>
+                  <button type="submit" className="button">
+                    Cambiar Estado
+                  </button>
+                </form>
+              </AdminOnly>
             </section>
           </div>
         )}

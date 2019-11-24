@@ -1,18 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
-
-const fetchUnidades = async id => {
-  const data = await fetch(`http://localhost:8080/edificios/${id}/unidades`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
+import { fetchToServer } from '../http';
+import { useSessionContext } from '../SessionContext';
 
 function useUnidades(id) {
   const [unidades, setUnidades] = useState([]);
+  const contexto = useSessionContext();
 
   useEffect(() => {
-    fetchUnidades(id).then(setUnidades);
+    fetchToServer(`http://localhost:8080/edificios/${id}/unidades`, contexto).then(setUnidades);
     return () => undefined;
-  }, [id]);
+  }, [id, contexto]);
 
   return unidades;
 }

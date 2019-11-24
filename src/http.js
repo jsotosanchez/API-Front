@@ -1,13 +1,14 @@
 export async function fetchToServer(url, context) {
   const data = await fetch(url, {
     headers: {
-      'X-Custom-User': JSON.stringify(context.estado)
+      'X-Custom-Documento': context.estado.documento,
+      'X-Custom-TipoUsuario': context.estado.tipoUsuario
     }
   });
   if (data.status >= 400) {
-    throw new Error(await data.json());
+    throw new Error(String(data.status));
   }
-  return data;
+  return data.json();
 }
 
 export async function postToServer(url, body, context) {

@@ -7,12 +7,7 @@ export function useEdificios() {
   const contexto = useSessionContext();
 
   useEffect(() => {
-    const fetchEdificios = async () => {
-      const data = await fetchToServer('http://localhost:8080/edificios', contexto);
-      const dataAsJson = await data.json();
-      return dataAsJson;
-    };
-    fetchEdificios().then(setEdificios);
+    fetchToServer('http://localhost:8080/edificios', contexto).then(setEdificios);
     return () => undefined;
   }, [contexto]);
 
