@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useSessionContext } from './SessionContext';
 import { useEdificios } from './hooks/useEdificios';
 
 const generarReclamo = (edificio, documento, piso, numero, ubicacion, descripcion) => {
-  console.log('codigo', edificio);
-  console.log('documento', documento);
-  console.log('piso', piso);
-  console.log('numero', numero);
-  console.log('ubicacion', ubicacion);
-  console.log('descripcion', descripcion);
   fetch(`http://localhost:8080/reclamos/${edificio}/${piso}/${numero}/${documento}/${ubicacion}/${descripcion}`, {
     method: 'POST'
   });
@@ -24,8 +19,10 @@ export default function GenerarReclamo() {
   const history = useHistory();
   const edificios = useEdificios();
 
+  const contexto = useSessionContext();
+
   const [edificio, setEdificio] = useState(1);
-  const [documento, setDocumento] = useState('');
+  const [documento, setDocumento] = useState(contexto.estado.documento);
   const [piso, setPiso] = useState('');
   const [numero, setNumero] = useState('');
   const [ubicacion, setUbicacion] = useState('');
@@ -58,20 +55,6 @@ export default function GenerarReclamo() {
             generarReclamo(edificio, documento, piso, numero, ubicacion, descripcion);
           }}
         >
-          <div className="form-row">
-            <div className="form-group">
-              <label>
-                Documento:
-                <input
-                  className="form-control"
-                  type="text"
-                  name="documento"
-                  placeholder="DNI12345"
-                  onChange={handleDocumento}
-                />
-              </label>
-            </div>
-          </div>
           <div className="form-row">
             {edificios && (
               <div className="form-group col-4">
