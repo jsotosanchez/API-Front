@@ -31,8 +31,6 @@ export default function GenerarReclamo() {
   const handleSelect = event => {
     setEdificio(event.target.value);
   };
-
-  const handleDocumento = event => setDocumento(event.target.value);
   const handlePiso = event => setPiso(event.target.value);
   const handleNumero = event => setNumero(event.target.value);
   const handleUbicacion = event => setUbicacion(event.target.value);
