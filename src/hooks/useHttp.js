@@ -28,6 +28,7 @@ export function usePostConToast() {
       .then(r => {
         if (r.status === 200) {
           ToastsStore.success('Se realizó con exito!');
+          return r.json();
         } else {
           return Promise.reject(r);
         }

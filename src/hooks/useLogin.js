@@ -1,20 +1,14 @@
 import { useState } from 'react';
 import { useSessionContext } from '../SessionContext';
-import { postToServer } from '../http';
+import { usePostConToast } from '../hooks/useHttp';
 
 export function useLogin() {
   const [persona, setPersona] = useState(null);
-  const context = useSessionContext();
+  const post = usePostConToast();
 
   function logIn(tipoUsuario, documento, password) {
-    const post = async () => {
-      const url = `http://localhost:8080/login/`;
-      const data = await postToServer(url, { tipoUsuario, documento, password }, context);
-      const dataAsJson = await data.json();
-      return dataAsJson;
-    };
     if (documento) {
-      post()
+      post(`http://localhost:8080/login/`, { tipoUsuario, documento, password })
         .then(setPersona)
         .catch(() => setPersona(null));
     }
