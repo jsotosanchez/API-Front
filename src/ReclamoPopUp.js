@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useReclamo } from './hooks/useReclamo';
 import { useHistory } from 'react-router-dom';
 import AdminOnly from './AdminOnly';
+import { usePostConToast } from './hooks/useHttp';
 
 /**
  *
@@ -18,10 +19,33 @@ export default function ReclamoPopUp({ match }) {
   const id = match.params.id;
   const history = useHistory();
   const reclamo = useReclamo(id);
+  const post = usePostConToast();
+  /**@type {React.MutableRefObject<HTMLInputElement | {files: [any]}>} */
+  const imageRef = useRef();
+
   // @ts-ignore
   const usuario = reclamo.usuario;
   // @ts-ignore
   const [estado, setEstado] = useState(reclamo.estado);
+
+  const [images, setImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  /**
+   *
+   * @type import('react').MouseEventHandler
+   */
+  const handleAgregarImagen = event => {
+    event.preventDefault();
+    const files = Array.from(imageRef.current.files);
+    setUploading(true);
+
+    const formData = new FormData();
+
+    formData.append('file', files[0]);
+
+    post(`http://localhost:8080/reclamos/${id}/imagenes`, formData).catch(() => {});
+  };
 
   const handleInputEstado = event => {
     setEstado(event.target.value);
@@ -86,8 +110,10 @@ export default function ReclamoPopUp({ match }) {
                     <button type="submit" className="button">
                       Cambiar Estado
                     </button>
-                    <input type="file" id="multi" multiple />
-                    <button className="button">Agregar Imagen</button>
+                    <input type="file" id="image" accept="image/*" ref={imageRef} />
+                    <button className="button" onClick={handleAgregarImagen}>
+                      Agregar Imagen
+                    </button>
                   </form>
                 </AdminOnly>
               </div>

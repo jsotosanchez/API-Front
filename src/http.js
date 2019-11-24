@@ -17,14 +17,21 @@ export async function fetchToServer(url, context) {
 }
 
 export async function postToServer(url, body, context) {
+  const isForm = body.__proto__.constructor === FormData;
+
+  const headers = {
+    'X-Custom-Documento': context.estado.documento,
+    'X-Custom-TipoUsuario': context.estado.tipoUsuario
+  };
+
+  if (!isForm) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   const data = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Custom-Documento': context.estado.documento,
-      'X-Custom-TipoUsuario': context.estado.tipoUsuario
-    }
+    body: isForm ? body : JSON.stringify(body),
+    headers
   });
   if (data.status >= 400) {
     return Promise.reject(new Error(String(data.status)));
