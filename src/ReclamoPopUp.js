@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { useReclamo } from './hooks/useReclamo';
 import { useHistory } from 'react-router-dom';
+import { useReclamo } from './hooks/useReclamo';
+import { useImagenes } from './hooks/useImagenes';
 import AdminOnly from './AdminOnly';
 import { usePostConToast } from './hooks/useHttp';
 
@@ -20,16 +21,15 @@ export default function ReclamoPopUp({ match }) {
   const history = useHistory();
   const reclamo = useReclamo(id);
   const post = usePostConToast();
-  /**@type {React.MutableRefObject<HTMLInputElement | {files: [any]}>} */
-  const imageRef = useRef();
+  const imagenes = useImagenes(id);
 
   // @ts-ignore
   const usuario = reclamo.usuario;
   // @ts-ignore
   const [estado, setEstado] = useState(reclamo.estado);
 
-  const [images, setImages] = useState([]);
-  const [uploading, setUploading] = useState(false);
+  /**@type {React.MutableRefObject<HTMLInputElement | {files: [any]}>} */
+  const imageRef = useRef();
 
   /**
    *
@@ -38,10 +38,7 @@ export default function ReclamoPopUp({ match }) {
   const handleAgregarImagen = event => {
     event.preventDefault();
     const files = Array.from(imageRef.current.files);
-    setUploading(true);
-
     const formData = new FormData();
-
     formData.append('file', files[0]);
 
     post(`http://localhost:8080/reclamos/${id}/imagenes`, formData).catch(() => {});
@@ -118,7 +115,11 @@ export default function ReclamoPopUp({ match }) {
                 </AdminOnly>
               </div>
             </section>
-            <section className="container-row">img</section>
+            <section className="container-row">
+              {imagenes.map(i => (
+                <div>{i.numero}</div>
+              ))}
+            </section>
           </div>
         )}
       </div>
