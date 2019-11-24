@@ -33,13 +33,13 @@ export default function Personas() {
       <div className="form">
         <div className="form-row">
           <div className="form-group col-3">
-            <label>
+            <label className="texto-blanco">
               Documento:
               <input type="text" name="documento" placeholder="DNI1234567" onChange={handleInputDoc} />
             </label>
           </div>
           <div className="form-group col-3">
-            <label>
+            <label className="texto-blanco">
               Nombre:
               <input type="text" name="Nombre" placeholder="Pepito Perez" onChange={handleInputNombre} />
             </label>
@@ -53,7 +53,7 @@ export default function Personas() {
           </button>
         </div>
       </div>
-      <ListaPersonas fetchPersonas={fetchPersonas} />
+      <ListaPersonas fetchPersonas={fetchPersonas} labelClass="texto-blanco" />
     </div>
   );
 }

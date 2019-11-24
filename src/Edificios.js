@@ -22,7 +22,7 @@ export default function Edificios({ match }) {
     <div>
       <form className="form" style={formStyle}>
         <div className="form-row">
-          <label>
+          <label className="texto-blanco">
             Buscar:
             <input className="form-control" type="text" name="name" placeholder="Nombre" onChange={handleChange} />
           </label>

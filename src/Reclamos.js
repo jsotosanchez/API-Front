@@ -10,7 +10,7 @@ const fetchReclamos = async () => {
 export default function Reclamos({ match }) {
   return (
     <div>
-      <ListaReclamos match={match} fetchReclamos={fetchReclamos} />
+      <ListaReclamos match={match} fetchReclamos={fetchReclamos} labelClass="texto-blanco" />
     </div>
   );
 }

@@ -11,7 +11,7 @@ import ReclamoPopUp from './ReclamoPopUp';
 // @ts-ignore
 export default withRouter(ListaReclamos);
 
-function ListaReclamos({ match, fetchReclamos }) {
+function ListaReclamos({ match, fetchReclamos, labelClass }) {
   const [filtroUsuario, setFiltroUsuario] = useState('');
   const [estado, setEstado] = useState('nuevo');
   const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario);
@@ -30,7 +30,7 @@ function ListaReclamos({ match, fetchReclamos }) {
       <div className="form">
         <div className="form-row">
           <div className="form-group col-4">
-            <label>
+            <label className={labelClass}>
               Buscar:
               <input
                 className="form-control"
@@ -42,7 +42,7 @@ function ListaReclamos({ match, fetchReclamos }) {
             </label>
           </div>
           <div className="form-group col-4">
-            <label>
+            <label className={labelClass}>
               Estado:
               <select className="form-control" onChange={handleInputEstado}>
                 <option value="nuevo">Nuevo</option>

@@ -42,7 +42,7 @@ export default function Login() {
     <form className="form login" onSubmit={handleSubmitForm}>
       <div className="form-row">
         <div className="form-group">
-          <label>
+          <label className="texto-blanco">
             Duenio
             <input
               type="radio"
@@ -52,7 +52,7 @@ export default function Login() {
               checked={tipoUsuario === TIPO_USUARIO.DUENIO}
             />
           </label>
-          <label>
+          <label className="texto-blanco">
             Inquilino
             <input
               type="radio"
@@ -62,7 +62,7 @@ export default function Login() {
               checked={tipoUsuario === TIPO_USUARIO.INQUILINO}
             />
           </label>
-          <label>
+          <label className="texto-blanco">
             Administrador
             <input
               type="radio"
@@ -77,7 +77,7 @@ export default function Login() {
 
       <div className="form-row">
         <div className="form-group">
-          <label>
+          <label className="texto-blanco">
             Documento
             <input type="text" className="form-control" placeholder="CPA3449614/admin" onBlur={handleDocumento} />
           </label>
@@ -85,7 +85,7 @@ export default function Login() {
       </div>
       <div className="form-row">
         <div className="form-group">
-          <label>
+          <label className="texto-blanco">
             Contraseña
             <input type="password" className="form-control" placeholder="*****" />
           </label>

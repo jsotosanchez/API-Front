@@ -2,16 +2,18 @@
 Gris oscuro: #9e9b9a
 Gris-verdoso-oscuro: #cfd2cd
 Gris-verdoso-clarito #f3f8f2
-Blanco : #f7f6f6 (fondo)
+Blanco : #f7f6f6
 Gris: #e5e6e4 (nav)
 Verde: #466365 (texto)
 Rojo: #E63946
  */
 
-/* this class is on top of everything */
 body {
   margin: 0;
-  background-color: #f7f6f6;
+  height: 100vh;
+  width: 100vw;
+  background: url('./assets/malte-schmidt-enGr5YbjQKQ-unsplash.jpg') no-repeat center;
+  background-size: cover;
 }
 .App {
   font-family: 'Roboto Mono', monospace;
@@ -29,8 +31,12 @@ label {
   color: #466365;
 }
 
+.texto-blanco {
+  color: #f7f6f6;
+}
+
 a {
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 a:hover {
@@ -61,6 +67,10 @@ nav {
   padding-top: 5px;
 }
 
+.nav-links li {
+  text-transform: uppercase;
+}
+
 .nav-links li :hover {
   color: #e63946 !important;
 }
@@ -72,13 +82,12 @@ nav {
   background-color: #f7f6f6;
   text-align: center;
   margin: 20px 20px 20px 20px;
-  padding-bottom: 5px;
+  padding: 2px 2px;
 }
 
 .card:hover {
   box-shadow: 0 8px 16px 0 #cfd2cd;
   cursor: pointer;
-  background: #cfd2cd;
 }
 
 .card-no-over {
@@ -88,11 +97,12 @@ nav {
   background-color: #f7f6f6;
   text-align: center;
   margin: 20px 20px 20px 20px;
-  padding-bottom: 5px;
+  padding: 2px 2px;
 }
 
 .detalle-edificio {
   box-shadow: 0 4px 8px 0 #c7c4c4;
+  border-radius: 5px;
   transition: 0.3s;
   border-radius: 5px;
   background-color: #f7f6f6;
@@ -102,6 +112,7 @@ nav {
 
 .button {
   background-color: #005070;
+  border: none;
   border-radius: 7px;
   margin: 0px 10px 0px 10px;
   font-size: 14px;
