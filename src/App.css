@@ -291,3 +291,14 @@ label {
   justify-items: center;
   align-items: center;
 }
+
+.reclamoPopUp-container {
+  align-content: space-around;
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+}
+
+.container-row {
+  margin: 0 auto;
+}
