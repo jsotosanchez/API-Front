@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ToastsStore } from 'react-toasts';
 
 import { useSessionContext } from './SessionContext';
 import { useEdificios } from './hooks/useEdificios';
@@ -7,8 +8,15 @@ import { useEdificios } from './hooks/useEdificios';
 const generarReclamo = (edificio, documento, piso, numero, ubicacion, descripcion) => {
   fetch(`http://localhost:8080/reclamos/${edificio}/${piso}/${numero}/${documento}/${ubicacion}/${descripcion}`, {
     method: 'POST'
-  });
-  alert('se genero!');
+  })
+    .then(r => {
+      if (r.status === 200) {
+        ToastsStore.success('Se genero con exito!');
+      }
+    })
+    .catch(r => {
+      ToastsStore.error('Se genero un error');
+    });
 };
 
 const buttonStyle = {

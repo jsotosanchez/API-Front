@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { ToastsContainer, ToastsStore, ToastsContainerPosition } from 'react-toasts';
 
 import './App.css';
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Redirect to="/login" />
         </Switch>
+        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT} />
       </div>
     </Router>
   );
