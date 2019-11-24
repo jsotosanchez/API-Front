@@ -5,10 +5,12 @@ import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
 import UnidadAccion from './UnidadAccion';
 import { useUnidad } from './hooks/useUnidad';
+import { usePostConToast } from './hooks/useHttp';
 
 export default function UnidadPopUp({ match, retornoUrl }) {
   const unidad = useUnidad(match.params.id);
   const history = useHistory();
+  const post = usePostConToast();
 
   const handleClose = event => {
     history.replace(retornoUrl);
@@ -29,12 +31,10 @@ export default function UnidadPopUp({ match, retornoUrl }) {
    * @return {void}
    */
   const addPersona = (tipoPersona, documento) => {
-    fetch(
-      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/agregar${tipoPersona}/${documento}`,
-      {
-        method: 'post'
-      }
-    );
+    post(
+      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/agregar${tipoPersona}`,
+      { documento }
+    ).catch(() => {});
   };
 
   const fetchReclamos = async () => {

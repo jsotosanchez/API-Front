@@ -27,7 +27,7 @@ export async function postToServer(url, body, context) {
     }
   });
   if (data.status >= 400) {
-    throw new Error(await data.json());
+    return Promise.reject(new Error(String(data.status)));
   }
   return data;
 }

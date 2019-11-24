@@ -25,10 +25,10 @@ export function usePostConToast() {
    */
   async function post(url, body) {
     return postToServer(url, body, contexto)
-      .then(r => {
+      .then(async r => {
         if (r.status === 200) {
           ToastsStore.success('Se realizó con exito!');
-          return r.json();
+          return r.json().catch(() => Promise.resolve({}));
         } else {
           return Promise.reject(r);
         }

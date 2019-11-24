@@ -26,7 +26,7 @@ export default function PersonasDeUnidad({ fetchPersonas, tipoPersona, addPerson
           Agregar
         </button>
       </form>
-      <ListaPersonas fetchPersonas={fetchPersonas} />
+      <ListaPersonas fetchPersonas={fetchPersonas} labelClass="" />
     </div>
   );
 }
