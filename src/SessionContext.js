@@ -11,7 +11,8 @@ import { createContext, useContext } from 'react';
  *  setDocumento : (documento: string)=> void,
  *  setTipoUsuario : (tipo: string)=> void,
  *  isLoggedIn: ()=> boolean,
- * isAdmin: ()=> boolean
+ * isAdmin: ()=> boolean,
+ * isDuenio: ()=> boolean
  * }} SessionContext
  */
 

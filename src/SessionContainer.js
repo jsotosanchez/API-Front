@@ -30,6 +30,14 @@ export default function SessionContainer({ children }) {
     return isLoggedIn() && Boolean(estado.tipoUsuario === TIPO_USUARIO.ADMINISTRADOR);
   }
 
+  function isDuenio() {
+    return (
+      isLoggedIn() &&
+      (Boolean(estado.tipoUsuario === TIPO_USUARIO.DUENIO) ||
+        Boolean(estado.tipoUsuario === TIPO_USUARIO.ADMINISTRADOR))
+    );
+  }
+
   /**
    * @type {import('./SessionContext').SessionContext}
    */
@@ -38,7 +46,8 @@ export default function SessionContainer({ children }) {
     setDocumento,
     setTipoUsuario,
     isLoggedIn,
-    isAdmin
+    isAdmin,
+    isDuenio
   };
   return <SessionContext.Provider value={contexto}>{children}</SessionContext.Provider>;
 }
