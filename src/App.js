@@ -14,15 +14,16 @@ import Login from './Login';
 
 function App() {
   const contexto = useSessionContext();
+  const isLoggedIn = contexto.isLoggedIn();
 
   return (
     <Router>
       <div className="App">
-        {contexto.isLoggedIn() && <Nav />}
+        {isLoggedIn && <Nav />}
         <Switch>
-          {contexto.isLoggedIn() && <Route path="/edificios" component={Edificios} />}
-          {contexto.isLoggedIn() && <Route path="/reclamos" component={Reclamos} />}
-          {contexto.isLoggedIn() && (
+          {isLoggedIn && <Route path="/edificios" component={Edificios} />}
+          {isLoggedIn && <Route path="/reclamos" component={Reclamos} />}
+          {isLoggedIn && (
             <AdminOnly>
               <Route path="/personas" component={Personas} />
             </AdminOnly>
