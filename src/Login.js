@@ -43,6 +43,22 @@ export default function Login() {
       <div className="form-row">
         <div className="form-group">
           <label className="texto-blanco">
+            Documento
+            <input type="text" className="form-control" placeholder="CPA3449614/admin" onBlur={handleDocumento} />
+          </label>
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label className="texto-blanco">
+            Contraseña
+            <input type="password" className="form-control" placeholder="*****" />
+          </label>
+        </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label className="texto-blanco">
             Duenio
             <input
               type="radio"
@@ -71,23 +87,6 @@ export default function Login() {
               onChange={handleTipoUsuario}
               checked={tipoUsuario === TIPO_USUARIO.ADMINISTRADOR}
             />
-          </label>
-        </div>
-      </div>
-
-      <div className="form-row">
-        <div className="form-group">
-          <label className="texto-blanco">
-            Documento
-            <input type="text" className="form-control" placeholder="CPA3449614/admin" onBlur={handleDocumento} />
-          </label>
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label className="texto-blanco">
-            Contraseña
-            <input type="password" className="form-control" placeholder="*****" />
           </label>
         </div>
       </div>
