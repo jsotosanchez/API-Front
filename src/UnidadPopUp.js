@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, useHistory, Redirect } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaReclamos from './ListaReclamos';
@@ -82,28 +82,20 @@ export default function UnidadPopUp({ match, retornoUrl }) {
         </button>
         <Route
           path={`${match.url}/inquilinos`}
-          render={() =>
-            unidad && (
-              <PersonasDeUnidad
-                fetchPersonas={() => fetchPersonas('inquilinos')}
-                tipoPersona="Inquilino"
-                addPersona={addPersona}
-              />
-            )
-          }
+          render={() => (
+            <ListaPersonasContainer fetch={() => fetchPersonas('inquilinos')} match={match} when={unidad}>
+              {personas => <PersonasDeUnidad personas={personas} tipoPersona="Inquilino" addPersona={addPersona} />}
+            </ListaPersonasContainer>
+          )}
         />
         <Route
           exact
           path={`${match.url}/duenios`}
-          render={() =>
-            unidad && (
-              <PersonasDeUnidad
-                fetchPersonas={() => fetchPersonas('duenios')}
-                tipoPersona="Duenio"
-                addPersona={addPersona}
-              />
-            )
-          }
+          render={() => (
+            <ListaPersonasContainer fetch={() => fetchPersonas('duenios')} match={match} when={unidad}>
+              {personas => <PersonasDeUnidad personas={personas} tipoPersona="Duenio" addPersona={addPersona} />}
+            </ListaPersonasContainer>
+          )}
         />
         <Route
           exact
@@ -124,4 +116,17 @@ export default function UnidadPopUp({ match, retornoUrl }) {
       </div>
     </div>
   );
+}
+
+function ListaPersonasContainer({ children, fetch, match, when }) {
+  const [personas, setPersonas] = useState([]);
+
+  useEffect(() => {
+    let callback = true;
+    fetch().then(data => callback && setPersonas(data));
+    return () => {
+      callback = false;
+    };
+  }, [fetch, match]);
+  return when && children(personas);
 }

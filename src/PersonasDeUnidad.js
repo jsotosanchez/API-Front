@@ -4,11 +4,11 @@ import ListaPersonas from './ListaPersonas';
 /**
  *
  * @param {object} props
- * @param {function():Promise} props.fetchPersonas
+ * @param {any[]} props.personas
  * @param {string} props.tipoPersona
  * @param {function(string, string): void} props.addPersona
  */
-export default function PersonasDeUnidad({ fetchPersonas, tipoPersona, addPersona }) {
+export default function PersonasDeUnidad({ personas, tipoPersona, addPersona }) {
   const [documento, setDocumento] = useState('');
   const handleInput = event => setDocumento(event.target.value);
 
@@ -26,7 +26,7 @@ export default function PersonasDeUnidad({ fetchPersonas, tipoPersona, addPerson
           Agregar
         </button>
       </form>
-      <ListaPersonas fetchPersonas={fetchPersonas} labelClass="" />
+      <ListaPersonas personas={personas} labelClass="" setFiltro={() => {}} />
     </div>
   );
 }

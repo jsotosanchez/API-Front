@@ -25,8 +25,6 @@ export default function ReclamoPopUp({ match }) {
   const reclamo = useReclamo(id);
   const post = usePostConToast();
   const imagenes = useImagenes(id);
-  console.log('reclamopop p', imagenes);
-
   // @ts-ignore
   const usuario = reclamo.usuario;
   // @ts-ignore
@@ -45,7 +43,11 @@ export default function ReclamoPopUp({ match }) {
     const formData = new FormData();
     formData.append('file', files[0]);
 
-    post(`http://localhost:8080/reclamos/${id}/imagenes`, formData).catch(() => {});
+    post(`http://localhost:8080/reclamos/${id}/imagenes`, formData)
+      .catch(() => {})
+      .then(() => {
+        history.replace(match.params.url, { id });
+      });
   };
 
   const handleInputEstado = event => {
