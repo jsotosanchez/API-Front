@@ -21,8 +21,8 @@ export default function ListaPersonas({ fetchPersonas, labelClass }) {
         </label>
       </div>
       <div className="lista-unidades">
-        {personas.map(u => (
-          <CardPersona key={u.documento + u.nombre} documento={u.documento} nombre={u.nombre} />
+        {personas.map((u, i) => (
+          <CardPersona key={i} documento={u.documento} nombre={u.nombre} />
         ))}
       </div>
     </div>
