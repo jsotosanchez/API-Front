@@ -5,14 +5,9 @@ export default function GaleriaImagenes({ imagenes, idReclamo }) {
     <div>
       <div className="form-row gallery">
         <ul>
-          {imagenes.map(i => (
+          {imagenes.map((u, i) => (
             <li key={i}>
-              <img
-                src={`http://localhost:8080/reclamos/${idReclamo}/imagenes/${i}`}
-                width="200px"
-                height="200px"
-                alt="imagen reclamo"
-              />
+              <img src={`http://localhost:8080/reclamos/${idReclamo}/imagenes/${u}`} alt={`imagen ${i} del reclamo`} />
             </li>
           ))}
         </ul>
