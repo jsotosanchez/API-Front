@@ -71,7 +71,7 @@ function ListaReclamos({ match, fetchReclamos, labelClass, hacerReclamo }) {
         ))}
       </div>
       <Switch>
-        <Route exact path={`${match.url}/generarReclamo`} render={() => hacerReclamo && GenerarReclamo} />
+        <Route exact path={`${match.url}/generarReclamo`} render={() => hacerReclamo && <GenerarReclamo />} />
         <Route path={`${match.url}/:id`} component={ReclamoPopUp} />
       </Switch>
     </div>
