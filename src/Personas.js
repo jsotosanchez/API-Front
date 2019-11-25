@@ -26,7 +26,12 @@ export default function Personas() {
   };
 
   const eliminarPersona = event => {
-    deleteConToast(`http://localhost:8080/personas/${documento}`, {}).catch(() => {});
+    deleteConToast(`http://localhost:8080/personas/${documento}`, {})
+      .catch(() => {})
+      .then(() => {
+        setRefresh(refresh + 1);
+      })
+      .catch(() => {});
   };
 
   const inputStyle = {

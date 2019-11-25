@@ -4,9 +4,9 @@ import { useState, useEffect, useMemo } from 'react';
  *
  * @param {function(): Promise} fetchReclamos
  * @param {string} estado
- * @param {string} filtroUsuario
+ * @param {number} refresh
  */
-function useReclamos(fetchReclamos, estado, filtroUsuario) {
+function useReclamos(fetchReclamos, estado, refresh) {
   const [reclamos, setReclamos] = useState([]);
 
   useEffect(() => {
@@ -14,13 +14,13 @@ function useReclamos(fetchReclamos, estado, filtroUsuario) {
 
     if (!reclamos.length) fetchReclamos().then(data => callback && setReclamos(data));
     return () => (callback = false);
-  }, [fetchReclamos, estado, filtroUsuario, reclamos]);
+  }, [fetchReclamos, estado, refresh, reclamos]);
 
   return reclamos;
 }
 
-export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario) {
-  const reclamos = useReclamos(fetchReclamos, estado, filtroUsuario);
+export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario, refresh) {
+  const reclamos = useReclamos(fetchReclamos, estado, refresh);
   return useMemo(
     () =>
       reclamos.filter(

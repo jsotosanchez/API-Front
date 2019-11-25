@@ -14,11 +14,16 @@ export default withRouter(ListaReclamos);
 function ListaReclamos({ match, fetchReclamos, labelClass, hacerReclamo }) {
   const [filtroUsuario, setFiltroUsuario] = useState('');
   const [estado, setEstado] = useState('nuevo');
-  const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario);
+  const [refresh, setRefresh] = useState(0);
 
-  const handleInputNombre = event => setFiltroUsuario(event.target.value);
+  const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario, refresh);
+
+  const handleInputNombre = event => {
+    setFiltroUsuario(event.target.value);
+  };
   const handleInputEstado = event => {
     setEstado(event.target.value);
+    setRefresh(refresh + 1);
   };
 
   const buttonStyle = {

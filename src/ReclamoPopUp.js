@@ -3,27 +3,17 @@ import { useHistory } from 'react-router-dom';
 
 import { useReclamo } from './hooks/useReclamo';
 import { useImagenes } from './hooks/useImagenes';
-import { usePostConToast } from './hooks/useHttp';
+import { usePostConToast, usePatchConToast } from './hooks/useHttp';
 
 import AdminOnly from './AdminOnly';
 import GaleriaImagenes from './GaleriaImagenes';
-
-/**
- *
- * @param {string} estado
- * @param {number} id
- */
-const actualizarEstado = (estado, id) => {
-  fetch(`http://localhost:8080/reclamos/${id}/cambiarEstado/${estado}`, {
-    method: 'PATCH'
-  });
-};
 
 export default function ReclamoPopUp({ match }) {
   const id = match.params.id;
   const history = useHistory();
   const reclamo = useReclamo(id);
   const post = usePostConToast();
+  const patch = usePatchConToast();
   const imagenes = useImagenes(id);
   // @ts-ignore
   const usuario = reclamo.usuario;
@@ -95,7 +85,11 @@ export default function ReclamoPopUp({ match }) {
                 <form
                   onSubmit={event => {
                     event.preventDefault();
-                    actualizarEstado(estado, id);
+                    patch(`http://localhost:8080/reclamos/${id}/cambiarEstado`, { estado })
+                      .catch(() => {})
+                      .then(() => {
+                        history.replace(match.params.url, { id });
+                      });
                   }}
                   className="form"
                 >

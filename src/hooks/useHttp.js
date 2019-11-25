@@ -1,6 +1,6 @@
 import { useSessionContext } from '../SessionContext';
 import { ToastsStore } from 'react-toasts';
-import { fetchToServer, postToServer, deleteToServer } from '../http';
+import { fetchToServer, postToServer, deleteToServer, patchToServer } from '../http';
 
 /**@return {function(string): Promise} */
 export function useFetchConToast() {
@@ -48,6 +48,31 @@ export function useDeleteConToast() {
    */
   async function del(url, body) {
     return deleteToServer(url, body, contexto)
+      .then(async r => {
+        if (r.status === 200) {
+          ToastsStore.success('Se realizó con exito!');
+          return r.json().catch(() => Promise.resolve({}));
+        } else {
+          return Promise.reject(r);
+        }
+      })
+      .catch(r => {
+        ToastsStore.error('Se genero un error');
+        return Promise.reject(r);
+      });
+  }
+}
+
+export function usePatchConToast() {
+  const contexto = useSessionContext();
+
+  return patch;
+  /**
+   *  @param {string} url
+   *  @param {object} body
+   */
+  async function patch(url, body) {
+    return patchToServer(url, body, contexto)
       .then(async r => {
         if (r.status === 200) {
           ToastsStore.success('Se realizó con exito!');
