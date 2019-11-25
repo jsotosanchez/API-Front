@@ -7,7 +7,6 @@ import DetalleEdificio from './DetalleEdificio';
 export default function Edificios({ match }) {
   const [filtro, setFiltro] = useState('');
   const edificios = useFiltrarEdificios(filtro);
-
   /**
    * @template {HTMLInputElement} T
    * @param {React.ChangeEvent<T>} event

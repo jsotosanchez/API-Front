@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import { useReclamo } from './hooks/useReclamo';
 import { useImagenes } from './hooks/useImagenes';
-import AdminOnly from './AdminOnly';
 import { usePostConToast } from './hooks/useHttp';
+
+import AdminOnly from './AdminOnly';
+import GaleriaImagenes from './GaleriaImagenes';
 
 /**
  *
@@ -22,6 +25,7 @@ export default function ReclamoPopUp({ match }) {
   const reclamo = useReclamo(id);
   const post = usePostConToast();
   const imagenes = useImagenes(id);
+  console.log('reclamopop p', imagenes);
 
   // @ts-ignore
   const usuario = reclamo.usuario;
@@ -115,11 +119,11 @@ export default function ReclamoPopUp({ match }) {
                 </AdminOnly>
               </div>
             </section>
-            <section className="container-row">
-              {imagenes.map(i => (
-                <div>{i.numero}</div>
-              ))}
-            </section>
+            {imagenes && (
+              <section className="container-row">
+                <GaleriaImagenes imagenes={imagenes} idReclamo={id} />
+              </section>
+            )}
           </div>
         )}
       </div>
