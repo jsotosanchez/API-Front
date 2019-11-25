@@ -7,7 +7,7 @@ const fetchReclamo = async id => {
 };
 
 export function useReclamo(id) {
-  const [reclamo, setReclamo] = useState([]);
+  const [reclamo, setReclamo] = useState({ estado: '', ubicacion: '', descripcion: '' });
 
   useEffect(() => {
     fetchReclamo(id).then(setReclamo);
