@@ -45,9 +45,7 @@ export default function ReclamoPopUp({ match }) {
 
     post(`http://localhost:8080/reclamos/${id}/imagenes`, formData)
       .catch(() => {})
-      .then(() => {
-        history.replace(match.params.url, { id });
-      });
+      .then(() => history.replace(match.params.url, { id }));
   };
 
   const handleInputEstado = event => {
