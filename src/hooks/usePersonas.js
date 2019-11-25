@@ -1,23 +1,25 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useFetchConToast } from './useHttp';
 
-function usePersonas() {
+/**
+ *
+ * @param {number} refresh
+ */
+function usePersonas(refresh) {
   const fetchConToast = useFetchConToast();
   const [personas, setPersonas] = useState([]);
 
   useEffect(() => {
     let callback = true;
 
-    if (!personas.length)
-      fetchConToast(`http://localhost:8080/personas`).then(data => {
-        console.log(data);
-        return callback && setPersonas(data);
-      });
+    fetchConToast(`http://localhost:8080/personas`).then(data => {
+      return callback && setPersonas(data);
+    });
 
     return () => {
       callback = false;
     };
-  }, [fetchConToast, personas]);
+  }, [fetchConToast, personas, refresh]);
 
   return personas;
 }
@@ -25,9 +27,10 @@ function usePersonas() {
 /**
  *
  * @param {string} filtro
+ * @param {number} refresh
  */
-export function useFiltrarPersonas(filtro) {
-  const personas = usePersonas();
+export function useFiltrarPersonas(filtro, refresh) {
+  const personas = usePersonas(refresh);
 
   return useMemo(
     () =>
