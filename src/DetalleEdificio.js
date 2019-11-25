@@ -9,6 +9,7 @@ import { useSessionContext } from './SessionContext';
 
 import { withRouter } from 'react-router';
 import NavDetalleEdificio from './NavDetalleEdificio';
+import { useFetchConToast } from './hooks/useHttp';
 
 export default withRouter(DetalleEdificio);
 
@@ -18,17 +19,14 @@ function DetalleEdificio({ match }) {
   const contexto = useSessionContext();
   const isDuenio = contexto.isDuenio();
   const isAdmin = contexto.isAdmin();
+  const fetchConToast = useFetchConToast();
 
   const fetchPersonas = async (id, tipoPersona) => {
-    const data = await fetch(`http://localhost:8080/edificios/${id}/${tipoPersona}`);
-    const dataAsJson = await data.json();
-    return dataAsJson;
+    return fetchConToast(`http://localhost:8080/edificios/${id}/${tipoPersona}`);
   };
 
   const fetchReclamos = async id => {
-    const data = await fetch(`http://localhost:8080/edificios/${id}/reclamos`);
-    const dataAsJson = await data.json();
-    return dataAsJson;
+    return fetchConToast(`http://localhost:8080/edificios/${id}/reclamos`);
   };
 
   return (
@@ -41,16 +39,23 @@ function DetalleEdificio({ match }) {
         <Route path={`${match.url}/unidades`} render={() => isDuenio && <ListaUnidades id={match.params.id} />} />
         <Route
           path={`${match.url}/inquilinos`}
-          render={() => <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habitantes')} />}
+          render={() => (
+            <ListaPersonas fetchPersonas={() => fetchPersonas(match.params.id, 'habitantes')} labelClass="" />
+          )}
         />
         <Route
           path={`${match.url}/duenios`}
-          render={() => <ListaPersonas fetchPersonas={() => isAdmin && fetchPersonas(match.params.id, 'duenios')} />}
+          render={() => (
+            <ListaPersonas fetchPersonas={() => isAdmin && fetchPersonas(match.params.id, 'duenios')} labelClass="" />
+          )}
         />
         <Route
           path={`${match.url}/habilitados`}
           render={() => (
-            <ListaPersonas fetchPersonas={() => isAdmin && fetchPersonas(match.params.id, 'habilitados')} />
+            <ListaPersonas
+              fetchPersonas={() => isAdmin && fetchPersonas(match.params.id, 'habilitados')}
+              labelClass=""
+            />
           )}
         />
         <Route
