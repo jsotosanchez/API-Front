@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
+import { usePostConToast, useDeleteConToast } from './hooks/useHttp';
+import { useFiltrarPersonas } from './hooks/usePersonas';
+
 import ListaPersonas from './ListaPersonas';
 
-const fetchPersonas = async () => {
-  const data = await fetch(`http://localhost:8080/personas`);
-  const dataAsJson = await data.json();
-  return dataAsJson;
-};
-
-const addPersona = async (doc, nombre) => {
-  fetch(`http://localhost:8080/personas/${nombre}/${doc}`, { method: 'POST' });
-};
-const deletePersona = async doc => {
-  fetch(`http://localhost:8080/personas/${doc}`, { method: 'DELETE' });
-};
-
 export default function Personas() {
-  const [doc, setDoc] = useState('');
+  const [documento, setDoc] = useState('');
   const [nombre, setNombre] = useState('');
+  const [filtro, setFiltro] = useState('');
+  const post = usePostConToast();
+  const deleteConToast = useDeleteConToast();
+
+  const personas = useFiltrarPersonas(filtro);
 
   const handleInputDoc = event => setDoc(event.target.value);
   const handleInputNombre = event => setNombre(event.target.value);
 
   const agregarPersona = event => {
-    addPersona(doc, nombre);
+    post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento }).catch(() => {});
   };
+
   const eliminarPersona = event => {
-    deletePersona(doc);
+    deleteConToast(`http://localhost:8080/personas/${documento}`, {}).catch(() => {});
   };
 
   const inputStyle = {
@@ -69,7 +65,7 @@ export default function Personas() {
           </button>
         </div>
       </div>
-      <ListaPersonas fetchPersonas={fetchPersonas} labelClass="texto-blanco" />
+      <ListaPersonas personas={personas} setFiltro={setFiltro} labelClass="texto-blanco" />
     </div>
   );
 }

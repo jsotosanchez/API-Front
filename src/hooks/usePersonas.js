@@ -1,33 +1,33 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useFetchConToast } from './useHttp';
 
-/**
- *
- * @param {function(): Promise<[object]>} fetchPersonas
- * @param {string} filtro
- */
-function usePersonas(fetchPersonas, filtro) {
+function usePersonas() {
+  const fetchConToast = useFetchConToast();
   const [personas, setPersonas] = useState([]);
 
   useEffect(() => {
     let callback = true;
 
-    if (!personas.length) fetchPersonas().then(data => callback && setPersonas(data));
+    if (!personas.length)
+      fetchConToast(`http://localhost:8080/personas`).then(data => {
+        console.log(data);
+        return callback && setPersonas(data);
+      });
 
     return () => {
       callback = false;
     };
-  }, [fetchPersonas, filtro, personas]);
+  }, [fetchConToast, personas]);
 
   return personas;
 }
 
 /**
  *
- * @param {function():Promise<[object]>} fetchPersonas
  * @param {string} filtro
  */
-export function useFiltrarPersonas(fetchPersonas, filtro) {
-  const personas = usePersonas(fetchPersonas, filtro);
+export function useFiltrarPersonas(filtro) {
+  const personas = usePersonas();
 
   return useMemo(
     () =>

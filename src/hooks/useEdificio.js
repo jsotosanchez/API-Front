@@ -7,7 +7,7 @@ const fetchEdificio = async id => {
 };
 
 export function useEdificio(id) {
-  const [edificio, setEdificio] = useState([]);
+  const [edificio, setEdificio] = useState({ nombre: '' });
 
   useEffect(() => {
     fetchEdificio(id).then(setEdificio);

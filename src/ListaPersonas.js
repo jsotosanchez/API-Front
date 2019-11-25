@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { useFiltrarPersonas } from './hooks/usePersonas';
+import React from 'react';
 import CardPersona from './CardPersona';
 
-export default function ListaPersonas({ fetchPersonas, labelClass }) {
-  const [filtro, setFiltro] = useState('');
-  const personas = useFiltrarPersonas(fetchPersonas, filtro);
-
+/**
+ *
+ * @param {{
+ * personas: any[],
+ * labelClass: string,
+ * setFiltro: function(string): void
+ * }} props
+ */
+export default function ListaPersonas({ personas, labelClass, setFiltro }) {
   const handleInputFiltro = event => setFiltro(event.target.value);
 
   const inputStyle = {
