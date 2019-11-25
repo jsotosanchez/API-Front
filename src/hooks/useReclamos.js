@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from 'react';
 /**
  *
  * @param {function(): Promise} fetchReclamos
+ * @param {string} estado
+ * @param {string} filtroUsuario
  */
 function useReclamos(fetchReclamos, estado, filtroUsuario) {
   const [reclamos, setReclamos] = useState([]);
@@ -10,9 +12,9 @@ function useReclamos(fetchReclamos, estado, filtroUsuario) {
   useEffect(() => {
     let callback = true;
 
-    fetchReclamos().then(data => callback && setReclamos(data));
+    if (!reclamos.length) fetchReclamos().then(data => callback && setReclamos(data));
     return () => (callback = false);
-  }, [fetchReclamos, estado, filtroUsuario]);
+  }, [fetchReclamos, estado, filtroUsuario, reclamos]);
 
   return reclamos;
 }
