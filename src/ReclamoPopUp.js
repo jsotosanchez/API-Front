@@ -94,14 +94,14 @@ export default function ReclamoPopUp({ match }) {
                 </div>
               </div>
               <div className="form-row">
-                <AdminOnly>
-                  <form
-                    onSubmit={event => {
-                      event.preventDefault();
-                      actualizarEstado(estado, id);
-                    }}
-                    className="form"
-                  >
+                <form
+                  onSubmit={event => {
+                    event.preventDefault();
+                    actualizarEstado(estado, id);
+                  }}
+                  className="form"
+                >
+                  <AdminOnly>
                     <select onChange={handleInputEstado}>
                       <option value="nuevo">Nuevo</option>
                       <option value="abierto">Abierto</option>
@@ -113,12 +113,12 @@ export default function ReclamoPopUp({ match }) {
                     <button type="submit" className="button">
                       Cambiar Estado
                     </button>
-                    <input type="file" id="image" accept="image/*" ref={imageRef} />
-                    <button className="button" onClick={handleAgregarImagen}>
-                      Agregar Imagen
-                    </button>
-                  </form>
-                </AdminOnly>
+                  </AdminOnly>
+                  <input type="file" id="image" accept="image/*" ref={imageRef} />
+                  <button className="button" onClick={handleAgregarImagen}>
+                    Agregar Imagen
+                  </button>
+                </form>
               </div>
             </section>
             {imagenes && (

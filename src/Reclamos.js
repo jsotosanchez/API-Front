@@ -13,7 +13,7 @@ export default function Reclamos({ match }) {
 
   return (
     <div>
-      <ListaReclamos match={match} fetchReclamos={fetchReclamos} labelClass="texto-blanco" />
+      <ListaReclamos match={match} fetchReclamos={fetchReclamos} labelClass="texto-blanco" hacerReclamo={true} />
     </div>
   );
 }

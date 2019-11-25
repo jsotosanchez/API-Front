@@ -100,7 +100,7 @@ export default function UnidadPopUp({ match, retornoUrl }) {
         <Route
           exact
           path={`${match.url}/reclamos`}
-          render={() => unidad && <ListaReclamos fetchReclamos={fetchReclamos} />}
+          render={() => unidad && <ListaReclamos fetchReclamos={fetchReclamos} labelClass="" hacerReclamo={false} />}
         />
         <Route
           exact

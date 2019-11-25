@@ -11,7 +11,7 @@ import ReclamoPopUp from './ReclamoPopUp';
 // @ts-ignore
 export default withRouter(ListaReclamos);
 
-function ListaReclamos({ match, fetchReclamos, labelClass }) {
+function ListaReclamos({ match, fetchReclamos, labelClass, hacerReclamo }) {
   const [filtroUsuario, setFiltroUsuario] = useState('');
   const [estado, setEstado] = useState('nuevo');
   const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario);
@@ -54,11 +54,13 @@ function ListaReclamos({ match, fetchReclamos, labelClass }) {
               </select>
             </label>
           </div>
-          <Link to={`${match.url}/generarReclamo`}>
-            <button style={buttonStyle} className="button">
-              Hacer reclamo
-            </button>
-          </Link>
+          {hacerReclamo && (
+            <Link to={`${match.url}/generarReclamo`}>
+              <button style={buttonStyle} className="button">
+                Hacer reclamo
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <div className="lista-unidades">
