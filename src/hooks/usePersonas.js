@@ -14,7 +14,7 @@ function usePersonas() {
  * @param {string} filtro
  */
 export function useFiltrarPersonas(filtro) {
-  const { personas, refresh: refreshPersonas } = usePersonas();
+  const { personas, refresh } = usePersonas();
 
   const personasFiltradas = useMemo(() => {
     return personas.filter(
@@ -24,5 +24,5 @@ export function useFiltrarPersonas(filtro) {
     );
   }, [personas, filtro]);
 
-  return { personas: personasFiltradas, refreshPersonas };
+  return { personas: personasFiltradas, refresh };
 }

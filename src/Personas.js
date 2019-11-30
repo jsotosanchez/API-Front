@@ -11,25 +11,21 @@ export default function Personas() {
   const post = usePostConToast();
   const deleteConToast = useDeleteConToast();
 
-  const { personas, refreshPersona } = useFiltrarPersonas(filtro);
+  const { personas, refresh } = useFiltrarPersonas(filtro);
 
   const handleInputDoc = event => setDoc(event.target.value);
   const handleInputNombre = event => setNombre(event.target.value);
 
   const agregarPersona = event => {
     post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento })
-      .then(() => {
-        refreshPersona();
-      })
+      .then(refresh)
       .catch(() => {});
   };
 
   const eliminarPersona = event => {
     deleteConToast(`http://localhost:8080/personas/${documento}`, {})
       .catch(() => {})
-      .then(() => {
-        refreshPersona();
-      })
+      .then(refresh)
       .catch(() => {});
   };
 
