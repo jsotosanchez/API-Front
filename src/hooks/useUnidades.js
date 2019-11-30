@@ -1,24 +1,23 @@
-import { useState, useEffect, useMemo } from 'react';
-import { fetchToServer } from '../http';
-import { useSessionContext } from '../SessionContext';
+import { useMemo } from 'react';
+import { useFetch } from './useFetch';
 
 function useUnidades(id) {
-  const [unidades, setUnidades] = useState([]);
-  const contexto = useSessionContext();
-
-  useEffect(() => {
-    fetchToServer(`http://localhost:8080/edificios/${id}/unidades`, contexto).then(setUnidades);
-    return () => undefined;
-  }, [id, contexto]);
-
-  return unidades;
+  const url = `http://localhost:8080/edificios/${id}/unidades`;
+  const { data: unidades } = useFetch([], url);
+  return { unidades };
 }
 
+/**
+ *
+ * @param {string} id
+ * @param {boolean} filtroSoloDisponible
+ * @param {string} piso
+ */
 export function useFiltrarUnidades(id, filtroSoloDisponible, piso) {
   const unidades = useUnidades(id);
-  return useMemo(() => unidades.filter(e => e.habitado !== filtroSoloDisponible && (!piso || e.piso === piso)), [
-    filtroSoloDisponible,
-    unidades,
-    piso
-  ]);
+  const unidadesFiltradas = useMemo(
+    () => unidades.filter(e => e.habitado !== filtroSoloDisponible && (!piso || e.piso === piso)),
+    [filtroSoloDisponible, unidades, piso]
+  );
+  return { unidadesFiltradas };
 }
