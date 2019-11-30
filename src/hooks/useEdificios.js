@@ -1,27 +1,22 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useFetchConToast } from './useHttp';
+import { useMemo } from 'react';
+import { useFetch } from './useFetch';
 
 export function useEdificios() {
-  const [edificios, setEdificios] = useState([]);
-  const fetch = useFetchConToast();
-
-  useEffect(() => {
-    let callback = true;
-
-    if (!edificios.length) fetch('http://localhost:8080/edificios').then(data => callback && setEdificios(data));
-
-    return () => {
-      callback = false;
-    };
-  }, [fetch, edificios]);
-
-  return edificios;
+  const url = 'http://localhost:8080/edificios';
+  const { data: edificios, refresh } = useFetch([], url);
+  return { edificios, refresh };
 }
-
+/**
+ *
+ * @param {string} filtro
+ */
 export function useFiltrarEdificios(filtro) {
-  const edificios = useEdificios();
-  return useMemo(() => edificios.filter(e => e.nombre.toLowerCase().includes(filtro.toLowerCase())), [
-    filtro,
-    edificios
-  ]);
+  const { edificios, refresh } = useEdificios();
+
+  const edificiosFiltrados = useMemo(
+    () => edificios.filter(e => e.nombre.toLowerCase().includes(filtro.toLowerCase())),
+    [filtro, edificios]
+  );
+
+  return { edificios: edificiosFiltrados, refresh };
 }
