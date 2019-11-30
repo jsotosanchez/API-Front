@@ -17,10 +17,6 @@ export default function Login() {
 
   const handleSubmitForm = event => {
     event.preventDefault();
-    if (!documento || !password) {
-      return;
-      // set error
-    }
     logIn(documento, password);
   };
 
