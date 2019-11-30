@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useFetchConToast } from './useHttp';
 import { useRefresh } from './useRefresh';
@@ -20,4 +20,16 @@ export function useFetchConRefresh(url, setter) {
   }, [fetchConToast, refreshId, url, setter]);
 
   return refresh;
+}
+
+/**
+ *
+ * @template T
+ * @param {T} initialState
+ * @param {String} url
+ */
+export function useFetch(initialState, url) {
+  const [data, setData] = useState(initialState);
+  const refresh = useFetchConRefresh(url, setData);
+  return { data, refresh };
 }
