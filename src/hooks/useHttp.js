@@ -1,16 +1,19 @@
 import { useSessionContext } from '../SessionContext';
 import { ToastsStore } from 'react-toasts';
 import { fetchToServer, postToServer, deleteToServer, patchToServer } from '../http';
+import { useMemo } from 'react';
 
 /**@return {function(string): Promise} */
 export function useFetchConToast() {
   const contexto = useSessionContext();
 
-  return async url => {
-    return fetchToServer(url, contexto).catch(e => {
-      ToastsStore.error('Se genero un error');
-    });
-  };
+  return useMemo(() => {
+    return url => {
+      return fetchToServer(url, contexto).catch(e => {
+        ToastsStore.error('Se genero un error');
+      });
+    };
+  }, [contexto]);
 }
 
 export function usePostConToast() {

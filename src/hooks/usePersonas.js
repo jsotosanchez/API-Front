@@ -1,11 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useFetchConToast } from './useHttp';
 
-/**
- *
- * @param {number} refresh
- */
-function usePersonas(refresh) {
+function usePersonas() {
+  const [refreshId, setRefresh] = useState(0);
   const fetchConToast = useFetchConToast();
   const [personas, setPersonas] = useState([]);
 
@@ -19,26 +16,27 @@ function usePersonas(refresh) {
     return () => {
       callback = false;
     };
-  }, [fetchConToast, personas, refresh]);
+  }, [fetchConToast, refreshId]);
 
-  return personas;
+  const refresh = useMemo(() => setRefresh(refreshId + 1), []);
+
+  return { personas, refresh };
 }
 
 /**
  *
  * @param {string} filtro
- * @param {number} refresh
  */
-export function useFiltrarPersonas(filtro, refresh) {
-  const personas = usePersonas(refresh);
+export function useFiltrarPersonas(filtro) {
+  const { personas, refresh: refreshPersonas } = usePersonas();
 
-  return useMemo(
-    () =>
-      personas.filter(
-        e =>
-          e.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-          e.documento.toLowerCase().includes(filtro.toLowerCase())
-      ),
-    [personas, filtro]
-  );
+  const personasFiltradas = useMemo(() => {
+    return personas.filter(
+      e =>
+        e.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
+        e.documento.toLowerCase().includes(filtro.toLowerCase())
+    );
+  }, [personas, filtro]);
+
+  return { personas: personasFiltradas, refreshPersonas };
 }

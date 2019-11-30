@@ -8,11 +8,10 @@ export default function Personas() {
   const [documento, setDoc] = useState('');
   const [nombre, setNombre] = useState('');
   const [filtro, setFiltro] = useState('');
-  const [refresh, setRefresh] = useState(0);
   const post = usePostConToast();
   const deleteConToast = useDeleteConToast();
 
-  const personas = useFiltrarPersonas(filtro, refresh);
+  const { personas, refreshPersona } = useFiltrarPersonas(filtro);
 
   const handleInputDoc = event => setDoc(event.target.value);
   const handleInputNombre = event => setNombre(event.target.value);
@@ -20,7 +19,7 @@ export default function Personas() {
   const agregarPersona = event => {
     post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento })
       .then(() => {
-        setRefresh(refresh + 1);
+        refreshPersona();
       })
       .catch(() => {});
   };
@@ -29,7 +28,7 @@ export default function Personas() {
     deleteConToast(`http://localhost:8080/personas/${documento}`, {})
       .catch(() => {})
       .then(() => {
-        setRefresh(refresh + 1);
+        refreshPersona();
       })
       .catch(() => {});
   };
