@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route, useHistory, Redirect } from 'react-router-dom';
 import NavUnidadPopUp from './NavUnidadPopUp';
 import ListaReclamos from './ListaReclamos';
 import PersonasDeUnidad from './PersonasDeUnidad';
 import UnidadAccion from './UnidadAccion';
 import { useUnidad } from './hooks/useUnidad';
-import { usePostConToast, useFetchConToast } from './hooks/useHttp';
+import { usePostConToast } from './hooks/useHttp';
+import { usePersonas } from './hooks/usePersonas';
 
 export default function UnidadPopUp({ match, retornoUrl }) {
   const unidad = useUnidad(match.params.id);
   const history = useHistory();
   const post = usePostConToast();
-  const fetchConToast = useFetchConToast();
 
   const handleClose = event => {
     history.replace(retornoUrl);
@@ -21,11 +21,8 @@ export default function UnidadPopUp({ match, retornoUrl }) {
    *
    * @param {string} tipoPersona
    */
-  const fetchPersonas = async tipoPersona => {
-    return fetchConToast(
-      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/${tipoPersona}`
-    );
-  };
+  const fetchPersonas = tipoPersona =>
+    `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/${tipoPersona}`;
 
   /**
    *
@@ -40,11 +37,8 @@ export default function UnidadPopUp({ match, retornoUrl }) {
     ).catch(() => {});
   };
 
-  const fetchReclamos = async () => {
-    return fetchConToast(
-      `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/reclamos`
-    );
-  };
+  const urlReclamos = () =>
+    `http://localhost:8080/unidades/${unidad.edificio.codigo}/${unidad.piso}/${unidad.numero}/reclamos`;
 
   /**
    *
@@ -83,7 +77,7 @@ export default function UnidadPopUp({ match, retornoUrl }) {
         <Route
           path={`${match.url}/inquilinos`}
           render={() => (
-            <ListaPersonasContainer fetch={() => fetchPersonas('inquilinos')} match={match} when={unidad}>
+            <ListaPersonasContainer url={fetchPersonas('inquilinos')} when={unidad}>
               {personas => <PersonasDeUnidad personas={personas} tipoPersona="Inquilino" addPersona={addPersona} />}
             </ListaPersonasContainer>
           )}
@@ -92,7 +86,7 @@ export default function UnidadPopUp({ match, retornoUrl }) {
           exact
           path={`${match.url}/duenios`}
           render={() => (
-            <ListaPersonasContainer fetch={() => fetchPersonas('duenios')} match={match} when={unidad}>
+            <ListaPersonasContainer url={fetchPersonas('duenios')} when={unidad}>
               {personas => <PersonasDeUnidad personas={personas} tipoPersona="Duenio" addPersona={addPersona} />}
             </ListaPersonasContainer>
           )}
@@ -100,7 +94,7 @@ export default function UnidadPopUp({ match, retornoUrl }) {
         <Route
           exact
           path={`${match.url}/reclamos`}
-          render={() => unidad && <ListaReclamos fetchReclamos={fetchReclamos} labelClass="" hacerReclamo={false} />}
+          render={() => unidad && <ListaReclamos url={urlReclamos()} labelClass="" hacerReclamo={false} />}
         />
         <Route
           exact
@@ -118,15 +112,7 @@ export default function UnidadPopUp({ match, retornoUrl }) {
   );
 }
 
-function ListaPersonasContainer({ children, fetch, match, when }) {
-  const [personas, setPersonas] = useState([]);
-
-  useEffect(() => {
-    let callback = true;
-    fetch().then(data => callback && setPersonas(data));
-    return () => {
-      callback = false;
-    };
-  }, [fetch, match]);
+function ListaPersonasContainer({ children, url, when }) {
+  const { personas } = usePersonas(url);
   return when && children(personas);
 }

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useFetch } from './useFetch';
 
-function usePersonas(url = `http://localhost:8080/personas`) {
+export function usePersonas(url = `http://localhost:8080/personas`) {
   const { data: personas, refresh } = useFetch([], url);
   return { personas, refresh };
 }
