@@ -30,7 +30,7 @@ function App() {
             </AdminOnly>
           )}
           <Route path="/login" component={Login} />
-          <Redirect to="/login" />
+          {(isLoggedIn && <Redirect to="/edificios" />) || <Redirect to="/login" />}
         </Switch>
         <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_RIGHT} />
       </div>

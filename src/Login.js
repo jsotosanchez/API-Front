@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 
 import { useLogin } from './hooks/useLogin';
-import { useSessionContext, TIPO_USUARIO } from './SessionContext';
 
 export default function Login() {
   const [documento, setDocumento] = useState('');
-  const [tipoUsuario, setTipoUsuario] = useState('');
-  const history = useHistory();
-  const sessionContext = useSessionContext();
-  const { persona, logIn } = useLogin();
-
-  useEffect(() => {
-    if (persona) {
-      sessionContext.setDocumento(documento);
-      sessionContext.setTipoUsuario(tipoUsuario);
-
-      history.replace('/edificios');
-    }
-    return () => {};
-  }, [persona, documento, history, sessionContext, tipoUsuario]);
+  const [password, setPassword] = useState('');
+  const logIn = useLogin();
 
   const handleDocumento = event => {
     setDocumento(event.target.value);
   };
 
-  const handleTipoUsuario = event => {
-    setTipoUsuario(event.target.value);
+  const handlePass = event => {
+    setPassword(event.target.value);
   };
 
   const handleSubmitForm = event => {
     event.preventDefault();
-    if (!documento || !tipoUsuario) {
+    if (!documento || !password) {
       return;
       // set error
     }
-    logIn(tipoUsuario, documento, '');
+    logIn(documento, password);
   };
 
   return (
@@ -52,41 +38,7 @@ export default function Login() {
         <div className="form-group">
           <label className="texto-blanco">
             Contraseña
-            <input type="password" className="form-control" placeholder="*****" />
-          </label>
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group">
-          <label className="texto-blanco">
-            Duenio
-            <input
-              type="radio"
-              name="tipoUsuario"
-              value={TIPO_USUARIO.DUENIO}
-              onChange={handleTipoUsuario}
-              checked={tipoUsuario === TIPO_USUARIO.DUENIO}
-            />
-          </label>
-          <label className="texto-blanco">
-            Inquilino
-            <input
-              type="radio"
-              name="tipoUsuario"
-              value={TIPO_USUARIO.INQUILINO}
-              onChange={handleTipoUsuario}
-              checked={tipoUsuario === TIPO_USUARIO.INQUILINO}
-            />
-          </label>
-          <label className="texto-blanco">
-            Administrador
-            <input
-              type="radio"
-              name="tipoUsuario"
-              value={TIPO_USUARIO.ADMINISTRADOR}
-              onChange={handleTipoUsuario}
-              checked={tipoUsuario === TIPO_USUARIO.ADMINISTRADOR}
-            />
+            <input type="password" className="form-control" placeholder="*****" onBlur={handlePass} />
           </label>
         </div>
       </div>
