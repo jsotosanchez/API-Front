@@ -12,7 +12,7 @@ export default withRouter(ListaUnidades);
 function ListaUnidades({ match, id }) {
   const [verSoloDisponibles, setVerSoloDisponibles] = useState(true);
   const [piso, setPiso] = useState(null);
-  const unidades = useFiltrarUnidades(id, verSoloDisponibles, piso);
+  const { unidades } = useFiltrarUnidades(id, verSoloDisponibles, piso);
 
   const filtrarHabitadas = () => {
     setVerSoloDisponibles(!verSoloDisponibles);
