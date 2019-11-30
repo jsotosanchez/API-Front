@@ -10,7 +10,7 @@ const buttonStyle = {
 
 export default function GenerarReclamo({ refresh }) {
   const history = useHistory();
-  const edificios = useEdificios();
+  const { edificios } = useEdificios();
 
   const [edificio, setEdificio] = useState(1);
   const [piso, setPiso] = useState('');
