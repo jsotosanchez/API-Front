@@ -11,19 +11,17 @@ import ReclamoPopUp from './ReclamoPopUp';
 // @ts-ignore
 export default withRouter(ListaReclamos);
 
-function ListaReclamos({ match, fetchReclamos, labelClass, hacerReclamo }) {
+function ListaReclamos({ match, url, labelClass, hacerReclamo }) {
   const [filtroUsuario, setFiltroUsuario] = useState('');
   const [estado, setEstado] = useState('nuevo');
-  const [refresh, setRefresh] = useState(0);
 
-  const reclamos = useFiltrarReclamos(fetchReclamos, estado, filtroUsuario, refresh);
+  const { reclamos, refresh } = useFiltrarReclamos(url, estado, filtroUsuario);
 
   const handleInputNombre = event => {
     setFiltroUsuario(event.target.value);
   };
   const handleInputEstado = event => {
     setEstado(event.target.value);
-    setRefresh(refresh + 1);
   };
 
   const buttonStyle = {
@@ -76,7 +74,11 @@ function ListaReclamos({ match, fetchReclamos, labelClass, hacerReclamo }) {
         ))}
       </div>
       <Switch>
-        <Route exact path={`${match.url}/generarReclamo`} render={() => hacerReclamo && <GenerarReclamo />} />
+        <Route
+          exact
+          path={`${match.url}/generarReclamo`}
+          render={() => hacerReclamo && <GenerarReclamo refresh={refresh} />}
+        />
         <Route path={`${match.url}/:id`} component={ReclamoPopUp} />
       </Switch>
     </div>

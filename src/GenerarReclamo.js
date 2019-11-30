@@ -8,7 +8,7 @@ const buttonStyle = {
   marginLeft: '0px'
 };
 
-export default function GenerarReclamo() {
+export default function GenerarReclamo({ refresh }) {
   const history = useHistory();
   const edificios = useEdificios();
 
@@ -33,7 +33,9 @@ export default function GenerarReclamo() {
   };
 
   const generarReclamo = () => {
-    return post('http://localhost:8080/reclamos/generar', { edificio, piso, numero, ubicacion, descripcion });
+    return post('http://localhost:8080/reclamos/generar', { edificio, piso, numero, ubicacion, descripcion }).then(
+      refresh
+    );
   };
 
   return (

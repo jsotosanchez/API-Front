@@ -1,27 +1,25 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useFetch } from './useFetch';
 
 /**
  *
- * @param {function(): Promise} fetchReclamos
- * @param {string} estado
- * @param {number} refresh
+ * @param {string} url
  */
-function useReclamos(fetchReclamos, estado, refresh) {
-  const [reclamos, setReclamos] = useState([]);
-
-  useEffect(() => {
-    let callback = true;
-
-    if (!reclamos.length) fetchReclamos().then(data => callback && setReclamos(data));
-    return () => (callback = false);
-  }, [fetchReclamos, estado, refresh, reclamos]);
-
-  return reclamos;
+function useReclamos(url) {
+  const { data: reclamos, refresh } = useFetch([], url);
+  return { reclamos, refresh };
 }
 
-export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario, refresh) {
-  const reclamos = useReclamos(fetchReclamos, estado, refresh);
-  return useMemo(
+/**
+ *
+ * @param {string} url
+ * @param {string} estado
+ * @param {string} filtroUsuario
+ */
+export function useFiltrarReclamos(url, estado, filtroUsuario) {
+  const { reclamos, refresh } = useReclamos(url);
+
+  const reclamosFiltrados = useMemo(
     () =>
       reclamos.filter(
         r =>
@@ -31,4 +29,6 @@ export function useFiltrarReclamos(fetchReclamos, estado, filtroUsuario, refresh
       ),
     [reclamos, estado, filtroUsuario]
   );
+
+  return { reclamos: reclamosFiltrados, refresh };
 }
