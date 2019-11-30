@@ -1,20 +1,18 @@
-import { useState, useMemo } from 'react';
-import { useFetchConRefresh } from './useFetch';
+import { useMemo } from 'react';
+import { useFetch } from './useFetch';
 
-function usePersonas() {
-  const [personas, setPersonas] = useState([]);
-
-  const refresh = useFetchConRefresh(`http://localhost:8080/personas`, setPersonas);
-
+function usePersonas(url = `http://localhost:8080/personas`) {
+  const { data: personas, refresh } = useFetch([], url);
   return { personas, refresh };
 }
 
 /**
  *
  * @param {string} filtro
+ * @param {string =} url
  */
-export function useFiltrarPersonas(filtro) {
-  const { personas, refresh } = usePersonas();
+export function useFiltrarPersonas(filtro, url) {
+  const { personas, refresh } = usePersonas(url);
 
   const personasFiltradas = useMemo(() => {
     return personas.filter(
