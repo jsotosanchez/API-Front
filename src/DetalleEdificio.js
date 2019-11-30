@@ -36,9 +36,12 @@ function DetalleEdificio({ match }) {
       <NavDetalleEdificio url={match.url} />
       <Switch>
         <Route path={`${match.url}/unidades`} render={() => isDuenio && <ListaUnidades id={match.params.id} />} />
-        <Route path={`${match.url}/inquilinos`} render={() => <ListaInquilinos url={urlInquilinos()} />} />
-        <Route path={`${match.url}/duenios`} render={() => isAdmin && <ListaInquilinos url={urlDuenios()} />} />
-        <Route path={`${match.url}/habilitados`} render={() => isAdmin && <ListaInquilinos url={urlHabilitados()} />} />
+        <Route path={`${match.url}/inquilinos`} render={() => <ListaPersonasContainer url={urlInquilinos()} />} />
+        <Route path={`${match.url}/duenios`} render={() => isAdmin && <ListaPersonasContainer url={urlDuenios()} />} />
+        <Route
+          path={`${match.url}/habilitados`}
+          render={() => isAdmin && <ListaPersonasContainer url={urlHabilitados()} />}
+        />
         <Route path={`${match.url}/reclamos`} render={() => <ListaReclamos url={fetchReclamos(match.params.id)} />} />
         <Redirect from="" to={`${match.url}/reclamos`} />
       </Switch>
@@ -46,7 +49,7 @@ function DetalleEdificio({ match }) {
   );
 }
 
-function ListaInquilinos({ url }) {
+function ListaPersonasContainer({ url }) {
   const [filtro, setFiltro] = useState('');
 
   const { personas } = useFiltrarPersonas(filtro, url);
