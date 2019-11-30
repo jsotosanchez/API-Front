@@ -1,24 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useFetchConToast } from './useHttp';
+import { useState, useMemo } from 'react';
+import { useFetchConRefresh } from './useFetch';
 
 function usePersonas() {
-  const [refreshId, setRefresh] = useState(0);
-  const fetchConToast = useFetchConToast();
   const [personas, setPersonas] = useState([]);
 
-  useEffect(() => {
-    let callback = true;
-
-    fetchConToast(`http://localhost:8080/personas`).then(data => {
-      return callback && setPersonas(data);
-    });
-
-    return () => {
-      callback = false;
-    };
-  }, [fetchConToast, refreshId]);
-
-  const refresh = useMemo(() => setRefresh(refreshId + 1), []);
+  const refresh = useFetchConRefresh(`http://localhost:8080/personas`, setPersonas);
 
   return { personas, refresh };
 }
