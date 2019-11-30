@@ -14,10 +14,8 @@ export default function ReclamoPopUp({ match }) {
   const reclamo = useReclamo(id);
   const post = usePostConToast();
   const patch = usePatchConToast();
-  const imagenes = useImagenes(id);
-  // @ts-ignore
+  const { imagenes, refresh } = useImagenes(id);
   const usuario = reclamo.usuario;
-  // @ts-ignore
   const [estado, setEstado] = useState(reclamo.estado);
 
   /**@type {React.MutableRefObject<HTMLInputElement | {files: [any]}>} */
@@ -35,7 +33,7 @@ export default function ReclamoPopUp({ match }) {
 
     post(`http://localhost:8080/reclamos/${id}/imagenes`, formData)
       .catch(() => {})
-      .then(() => history.replace(match.params.url, { id }));
+      .then(refresh);
   };
 
   const handleInputEstado = event => {

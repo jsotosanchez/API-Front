@@ -1,20 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useFetchConToast } from './useHttp';
+import { useFetch } from './useFetch';
 
 export function useImagenes(id) {
-  const [imagenes, setImagenes] = useState([]);
-  const fetch = useFetchConToast();
-
-  useEffect(() => {
-    let callback = true;
-
-    if (!imagenes.length)
-      fetch(`http://localhost:8080/reclamos/${id}/imagenes`).then(data => callback && setImagenes(data));
-
-    return () => {
-      callback = false;
-    };
-  }, [fetch, imagenes, id]);
-
-  return imagenes;
+  const url = `http://localhost:8080/reclamos/${id}/imagenes`;
+  const { data: imagenes, refresh } = useFetch([], url);
+  return { imagenes, refresh };
 }
