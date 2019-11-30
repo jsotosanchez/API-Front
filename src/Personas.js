@@ -3,21 +3,24 @@ import { usePostConToast, useDeleteConToast } from './hooks/useHttp';
 import { useFiltrarPersonas } from './hooks/usePersonas';
 
 import ListaPersonas from './ListaPersonas';
+import { TIPO_USUARIO } from './SessionContext';
 
 export default function Personas() {
   const [documento, setDoc] = useState('');
   const [nombre, setNombre] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState('');
   const [filtro, setFiltro] = useState('');
+  const { personas, refresh } = useFiltrarPersonas(filtro);
+
   const post = usePostConToast();
   const deleteConToast = useDeleteConToast();
 
-  const { personas, refresh } = useFiltrarPersonas(filtro);
-
   const handleInputDoc = event => setDoc(event.target.value);
   const handleInputNombre = event => setNombre(event.target.value);
+  const handleTipoUsuario = event => setTipoUsuario(event.target.value);
 
   const agregarPersona = event => {
-    post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento })
+    post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento, tipo: tipoUsuario })
       .then(refresh)
       .catch(() => {});
   };
@@ -61,7 +64,38 @@ export default function Personas() {
               />
             </label>
           </div>
-
+          <div className="form-group">
+            <label className="texto-blanco">
+              Duenio
+              <input
+                type="radio"
+                name="tipoUsuario"
+                value={TIPO_USUARIO.DUENIO}
+                onChange={handleTipoUsuario}
+                checked={tipoUsuario === TIPO_USUARIO.DUENIO}
+              />
+            </label>
+            <label className="texto-blanco">
+              Inquilino
+              <input
+                type="radio"
+                name="tipoUsuario"
+                value={TIPO_USUARIO.INQUILINO}
+                onChange={handleTipoUsuario}
+                checked={tipoUsuario === TIPO_USUARIO.INQUILINO}
+              />
+            </label>
+            <label className="texto-blanco">
+              Administrador
+              <input
+                type="radio"
+                name="tipoUsuario"
+                value={TIPO_USUARIO.ADMINISTRADOR}
+                onChange={handleTipoUsuario}
+                checked={tipoUsuario === TIPO_USUARIO.ADMINISTRADOR}
+              />
+            </label>
+          </div>
           <button onClick={agregarPersona} className="button">
             Agregar
           </button>
