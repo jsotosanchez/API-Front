@@ -25,19 +25,27 @@ export function usePostConToast() {
    *  @param {object} body
    */
   async function post(url, body) {
-    return postToServer(url, body, contexto)
-      .then(async r => {
-        if (r.status === 200) {
-          ToastsStore.success('Se realizó con exito!');
-          return r.json().catch(() => Promise.resolve({}));
-        } else {
-          return Promise.reject(r);
+    return postToServer(url, body, contexto).then(
+      async r => {
+        switch (r.status) {
+          case 200:
+            ToastsStore.success('Se realizó con exito!');
+            return r.json().catch(() => Promise.resolve({}));
+
+          default:
+            ToastsStore.warning('Respuesta no identificada');
+            return Promise.reject(r);
         }
-      })
-      .catch(r => {
-        ToastsStore.error('Se genero un error');
-        return Promise.reject(r);
-      });
+      },
+      e => {
+        if (e.message === '401') {
+          ToastsStore.error('No está autorizado');
+        } else {
+          ToastsStore.error('Se genero un error');
+        }
+        return Promise.reject(e);
+      }
+    );
   }
 }
 
