@@ -8,6 +8,7 @@ import { TIPO_USUARIO } from './SessionContext';
 export default function Personas() {
   const [documento, setDoc] = useState('');
   const [nombre, setNombre] = useState('');
+  const [pass, setPass] = useState('');
   const [tipoUsuario, setTipoUsuario] = useState('');
   const [filtro, setFiltro] = useState('');
   const { personas, refresh } = useFiltrarPersonas(filtro);
@@ -17,10 +18,11 @@ export default function Personas() {
 
   const handleInputDoc = event => setDoc(event.target.value);
   const handleInputNombre = event => setNombre(event.target.value);
+  const handleInputPass = event => setPass(event.target.value);
   const handleTipoUsuario = event => setTipoUsuario(event.target.value);
 
   const agregarPersona = event => {
-    post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento, tipo: tipoUsuario })
+    post(`http://localhost:8080/personas/agregarPersona`, { nombre, documento, tipo: tipoUsuario, pass })
       .then(refresh)
       .catch(() => {});
   };
@@ -64,6 +66,14 @@ export default function Personas() {
               />
             </label>
           </div>
+          <div className="form-group col-3">
+            <label className="texto-blanco">
+              Contraseña:
+              <input style={inputStyle} type="text" name="Nombre" placeholder="pass123" onChange={handleInputPass} />
+            </label>
+          </div>
+        </div>
+        <div className="form-row">
           <div className="form-group">
             <label className="texto-blanco">
               Duenio
