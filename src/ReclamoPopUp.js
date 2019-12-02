@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useSessionContext } from './SessionContext';
 import { useReclamo } from './hooks/useReclamo';
 import { useImagenes } from './hooks/useImagenes';
 import { usePostConToast, usePatchConToast } from './hooks/useHttp';
@@ -17,6 +18,8 @@ export default function ReclamoPopUp({ match }) {
   const { imagenes, refresh } = useImagenes(id);
   const usuario = reclamo.usuario;
   const [estado, setEstado] = useState(reclamo.estado);
+  const contexto = useSessionContext();
+  const contextoDoc = contexto.estado.documento;
 
   /**@type {React.MutableRefObject<HTMLInputElement | {files: [any]}>} */
   const imageRef = useRef();
@@ -105,9 +108,11 @@ export default function ReclamoPopUp({ match }) {
                     </button>
                   </AdminOnly>
                   <input type="file" id="image" accept="image/*" ref={imageRef} />
-                  <button className="button" onClick={handleAgregarImagen}>
-                    Agregar Imagen
-                  </button>
+                  {usuario && usuario.documento === contextoDoc && (
+                    <button className="button" onClick={handleAgregarImagen}>
+                      Agregar Imagen
+                    </button>
+                  )}
                 </form>
               </div>
             </section>
